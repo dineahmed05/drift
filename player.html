@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Drift player</title>
+<style>html,body{margin:0;height:100%;background:#000;overflow:hidden}</style><style id="sty"></style></head>
+<body><div id="c"><div id="p"></div></div>
+<script>
+var D=window.D||{ready:function(){},buffered:function(){},started:function(){},ended:function(){},failed:function(){}};
+var Q=new URLSearchParams(location.search);
+var ID=Q.get('v')||'',NS=Q.get('ns')==='1',VERT=Q.get('vert')==='1',W0=+Q.get('w')||360,H0=+Q.get('h')||640,NC=Q.get('nc')==='1';
+var pl,want=false,es=false;
+function lay(){var W=window.innerWidth||W0,H=window.innerHeight||H0,vw,vh;
+if(VERT){if(W>H){vh=H;vw=vh*9/16;}else{vw=Math.min(Math.max(W,H*0.5625),W*1.25);vh=vw*16/9;}}
+else{if(W>H){vh=Math.min(H,W*0.5625);vw=vh*16/9;}else{vw=W;vh=W*9/16;}}
+document.getElementById('sty').innerHTML='#c{position:absolute;overflow:hidden;left:'+((W-vw)/2)+'px;top:'+((H-vh)/2)+'px;width:'+vw+'px;height:'+vh+'px}#p{position:absolute!important;left:0;top:-85px;width:'+vw+'px!important;height:'+(vh+170)+'px!important;border:0}';}
+lay();window.onresize=lay;
+function sk(n){if(pl&&pl.seekTo&&pl.getCurrentTime){pl.seekTo(pl.getCurrentTime()+n,true);}}
+function onYouTubeIframeAPIReady(){var o={width:'100%',height:'100%',videoId:ID,
+playerVars:{autoplay:0,controls:0,playsinline:1,rel:0,modestbranding:1,fs:0,iv_load_policy:3,disablekb:1,mute:1},
+events:{onReady:function(){D.ready();if(!want){pl.mute();pl.playVideo();}},
+onStateChange:function(e){if(e.data==1){if(!want){pl.pauseVideo();pl.seekTo(0,true);D.buffered();}else{D.started();}}if(e.data==0)fe();},
+onError:function(e){D.failed(''+e.data);}}};
+if(NC)o.host='https://www.youtube-nocookie.com';
+pl=new YT.Player('p',o);}
+function fe(){if(!es&&want){es=true;D.ended();}}
+function go(m,r){want=true;es=false;if(pl&&pl.playVideo){if(m)pl.mute();else pl.unMute();pl.setPlaybackRate(r);pl.seekTo(0,true);pl.playVideo();}}
+function stp(){want=false;if(pl&&pl.pauseVideo)pl.pauseVideo();}
+function pz(){if(pl&&pl.pauseVideo)pl.pauseVideo();}function rs(){if(pl&&pl.playVideo)pl.playVideo();}
+function aud(m,r){if(pl&&pl.mute){if(m)pl.mute();else pl.unMute();pl.setPlaybackRate(r);}}
+var stuck=0;setInterval(function(){if(want&&pl&&pl.getPlayerState){var s=pl.getPlayerState(),t=pl.getCurrentTime();
+if(s==1&&t<0.15){stuck++;}else if(s==3||s==-1||s==5){stuck+=0.5;}else{stuck=0;}if(stuck>=5&&!NS){stuck=-99;D.failed('stuck');}}else{stuck=0;}},1000);
+setInterval(function(){if(want&&pl&&pl.getDuration&&pl.getPlayerState){var s=pl.getPlayerState(),d=pl.getDuration(),t=pl.getCurrentTime();
+if((s==0)||(s==1&&d>1&&t>=d-0.45))fe();}},300);
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body></html>
