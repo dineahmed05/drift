@@ -7,7 +7,8 @@ Tune from the workflow (env): BUDGET_PER_KEY (default 9000), SHARD_BASE (2200), 
 """
 import json, os, sys, time, datetime, re, random, math, urllib.request, urllib.parse, urllib.error
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE) if os.path.basename(HERE) == "tools" else HERE
 KEYS = [os.environ.get(k, "").strip() for k in ("YT_KEY", "YT_KEY2", "YT_KEY3")]
 KEYS = [k for k in KEYS if k]
 if not KEYS:
@@ -25,10 +26,13 @@ class Out(Exception):
 
 dead = set()
 spent = 0
+fails = 0
 
 def api(path, cost=1):
     """Calls the API, rotating keys; raises Out when every key is exhausted."""
-    global spent
+    global spent, fails
+    if fails >= 15:
+        raise Out()
     for _ in range(len(KEYS) + 1):
         live = [k for k in KEYS if k not in dead]
         if not live:
@@ -38,6 +42,7 @@ def api(path, cost=1):
         try:
             with urllib.request.urlopen(url, timeout=30) as r:
                 spent += cost
+                fails = 0
                 return json.load(r)
         except urllib.error.HTTPError as e:
             body = e.read()[:300].decode("utf-8", "ignore")
@@ -46,11 +51,14 @@ def api(path, cost=1):
                 dead.add(k)
                 continue
             if e.code in (400, 404):
+                fails += 1
                 return None
+            fails += 1
             print("HTTP", e.code, body[:120], file=sys.stderr)
             return None
         except Exception as e:
             print("ERR", e, file=sys.stderr)
+            fails += 1
             time.sleep(1)
     return None
 
@@ -71,7 +79,7 @@ def clean(x):
     return (x or "").replace("\t", " ").replace("\n", " ").replace("\r", " ")
 
 # ---------------- state ----------------
-topics = json.load(open(os.path.join(ROOT, "tools", "topics.json"), encoding="utf-8"))
+topics = json.load(open(os.path.join(HERE, "topics.json"), encoding="utf-8"))
 T = {t["id"]: t for t in topics}
 os.makedirs(os.path.join(ROOT, "v"), exist_ok=True)
 os.makedirs(os.path.join(ROOT, "data"), exist_ok=True)
@@ -174,8 +182,8 @@ def add_videos(ids, topic):
 
 try:
     # ---------- 1) discovery by search: random order, random time window, random region -> different results each day ----------
-    searches = int(TOTAL * 0.32 / 100)
-    for _ in range(searches):
+    for _ in range(100000):
+        if spent >= TOTAL * 0.30: break
         t = pick_topic()
         q = random.choice(T[t]["q"])
         ar = bool(re.search(r"[؀-ۿ]", q))
@@ -196,18 +204,18 @@ try:
     CAT = {"20": ["game", "realgame", "parkour"], "23": ["meme", "skit", "fail"], "15": ["pets", "wild"], "10": ["music", "dance"],
            "17": ["sport", "fit", "martial"], "24": ["challenge", "movie", "cartoon"], "26": ["diy", "cook", "art"], "27": ["sci", "hist", "space"],
            "28": ["tech", "ai"], "19": ["travel", "city", "camp"], "1": ["anime", "cartoon", "movie"], "2": ["cars"], "22": ["story", "brain", "calm"]}
-    for _ in range(int(TOTAL * 0.04)):
+    for _ in range(100000):
+        if spent >= TOTAL * 0.34: break
         c = random.choice(list(CAT))
         reg = random.choice(["US", "SA", "EG", "DZ", "GB", "FR", "DE", "BR", "TR", "AE", "MA", "CA"])
         r = api("videos?part=id&chart=mostPopular&videoCategoryId=" + c + "&regionCode=" + reg + "&maxResults=50&fields=items(id)")
         if r: add_videos([i["id"] for i in r.get("items", [])], random.choice([x for x in CAT[c] if x in T] or list(T)))
 
     # ---------- 3) crawl channel uploads (1 unit per 50 videos) ----------
-    crawl = int(TOTAL * 0.30)
     order = sorted(channels, key=lambda c: (channels[c][1], -channels[c][2]))
     done = 0
     for cid in order:
-        if done >= crawl: break
+        if spent >= TOTAL * 0.62: break
         ch = channels[cid]
         if ch[3] >= 3 and ch[2] == 0: continue          # channel never gave a usable clip
         if TODAY - ch[1] < 3: continue
@@ -224,7 +232,7 @@ try:
     # ---------- 4) re-check a slice of old clips (drop the ones that stopped being embeddable) ----------
     allrows = [(t, r) for t, rows in shards.items() for r in rows]
     cur = state.get("cursor", 0)
-    slice_ = allrows[cur:cur + int(TOTAL * 0.08) * 50]
+    slice_ = allrows[cur:cur + max(0, int((TOTAL * 0.70 - spent))) * 50]
     state["cursor"] = 0 if cur + len(slice_) >= len(allrows) else cur + len(slice_)
     alive = set()
     ids = [r[0] for _, r in slice_]
@@ -259,8 +267,9 @@ try:
             c = l.rstrip("\n").split("\t")
             if len(c) >= 4: series.append(c[:5])
     known_s = {s[0] for s in series}
-    sq = json.load(open(os.path.join(ROOT, "tools", "series_queries.json"), encoding="utf-8"))
-    for _ in range(int(TOTAL * 0.16 / 100)):
+    sq = json.load(open(os.path.join(HERE, "series_queries.json"), encoding="utf-8"))
+    for _ in range(100000):
+        if spent >= TOTAL * 0.95: break
         q = random.choice(sq)
         r = api("search?part=snippet&type=playlist&maxResults=25&safeSearch=strict&relevanceLanguage=ar&regionCode=" + random.choice(["SA", "EG", "DZ", "AE"]) + "&fields=items(id/playlistId,snippet(title,channelTitle,thumbnails/medium/url))&q=" + urllib.parse.quote(q), 100)
         if not r: continue
