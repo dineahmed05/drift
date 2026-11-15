@@ -3,99 +3,87 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Drift — حمّل التطبيق</title>
+<title>Drift</title>
 <meta name="description" content="Drift: فيديوهات قصيرة لا تنتهي، أصدقاء افتراضيون تعتني بهم، مكافآت وهدايا وعجلة حظ. مجاني وبدون إعلانات.">
 <meta name="theme-color" content="#0d0b1a">
 <style>
 :root{--bg:#0d0b1a;--card:#17142b;--line:#2a2548;--fg:#f4f1ff;--mut:#a9a3c9;--a:#ff5fa2;--b:#7c5cff;--c:#ffc857}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:"Segoe UI",Tahoma,system-ui,sans-serif;line-height:1.7;overflow-x:hidden}
-a{color:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Segoe UI",Tahoma,system-ui,sans-serif;line-height:1.8;overflow-x:hidden}
 .wrap{max-width:980px;margin:0 auto;padding:0 18px}
 .glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(600px 400px at 85% -5%,#7c5cff55,transparent 70%),radial-gradient(500px 380px at 5% 30%,#ff5fa233,transparent 70%)}
-header{position:relative;display:flex;align-items:center;justify-content:space-between;padding:18px 0}
-.logo{font-weight:800;letter-spacing:.28em;font-size:1.15rem}
+header{position:relative;padding:20px 0;text-align:center}
+.logo{font-weight:800;letter-spacing:.3em;font-size:1.2rem}
 .logo i{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:34px 0 50px}
-h1{font-size:clamp(2.1rem,6vw,3.5rem);line-height:1.15;margin:0 0 14px}
+.hero{position:relative;text-align:center;padding:30px 0 40px}
+h1{font-size:clamp(2.2rem,7vw,3.6rem);line-height:1.2;margin:0 0 16px}
 h1 span{background:linear-gradient(90deg,var(--a),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{color:var(--mut);font-size:1.08rem;margin:0 0 24px}
-.btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,var(--a),var(--b));color:#fff;text-decoration:none;font-weight:700;padding:15px 28px;border-radius:16px;font-size:1.1rem;box-shadow:0 10px 30px #7c5cff55;transition:transform .15s}
-.btn:active{transform:scale(.97)}
-.note{color:var(--mut);font-size:.88rem;margin-top:12px}
-.phone{position:relative;justify-self:center;width:260px;height:520px;border-radius:38px;background:#000;border:6px solid #2b2650;box-shadow:0 30px 70px #000a,0 0 0 2px #0006;overflow:hidden}
-.phone .scr{position:absolute;inset:0;background:linear-gradient(170deg,#2a1c5a,#0d0b1a 60%,#3b1550)}
-.phone .pill{position:absolute;top:12px;right:14px;background:#0008;border-radius:20px;padding:4px 12px;font-size:.85rem}
-.phone .rail{position:absolute;left:12px;bottom:110px;display:flex;flex-direction:column;gap:16px;font-size:1.4rem;text-align:center}
-.phone .cap{position:absolute;right:14px;bottom:24px;font-size:.9rem;color:#fff;max-width:170px}
-.phone img{position:absolute;width:150px;left:50%;top:34%;transform:translateX(-50%);animation:bob 2.4s ease-in-out infinite;filter:drop-shadow(0 12px 18px #0008)}
-@keyframes bob{50%{transform:translateX(-50%) translateY(-12px)}}
-h2{font-size:1.7rem;margin:0 0 6px}
-.sec{position:relative;padding:34px 0}
-.sub{color:var(--mut);margin:0 0 22px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.lead{color:var(--mut);font-size:1.1rem;max-width:640px;margin:0 auto 22px}
+.scroll{display:inline-block;color:var(--fg);opacity:.85;animation:down 1.6s ease-in-out infinite;font-size:1rem}
+@keyframes down{50%{transform:translateY(8px)}}
+.pets{display:flex;gap:10px;overflow-x:auto;padding:8px 2px 16px;scroll-snap-type:x mandatory;justify-content:safe center}
+.pets div{flex:0 0 112px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:10px;scroll-snap-align:start}
+.pets img{width:100%;height:auto;display:block}
+.blk{position:relative;display:grid;grid-template-columns:1fr 270px;gap:34px;align-items:center;padding:38px 0;border-top:1px solid var(--line)}
+.blk.rev{grid-template-columns:270px 1fr}
+.blk.rev .phone{order:-1}
+.num{display:inline-block;font-weight:800;color:var(--a);letter-spacing:.1em}
+h2{font-size:1.7rem;margin:2px 0 8px}
+.blk p,.more p{color:var(--mut);margin:0 0 12px}
+ul{margin:0;padding:0 18px;color:var(--fg)}
+li{margin:3px 0}
+.phone{justify-self:center;width:270px;position:relative;filter:drop-shadow(0 24px 40px #000c) drop-shadow(0 0 22px #7c5cff44)}
+.phone:before{content:'';position:absolute;inset:-6px;border-radius:38px;border:2px solid #3a3470;pointer-events:none}
+.phone img{display:block;width:100%;height:auto;border-radius:34px}
+.more{position:relative;padding:38px 0;border-top:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px}
 .f{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}
 .f b{display:block;font-size:1.05rem;margin:8px 0 4px}
-.f p{margin:0;color:var(--mut);font-size:.93rem}
+.f p{margin:0;font-size:.95rem}
 .ico{font-size:1.9rem}
-.pets{display:flex;gap:10px;overflow-x:auto;padding:6px 2px 14px;scroll-snap-type:x mandatory}
-.pets div{flex:0 0 120px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:10px;text-align:center;scroll-snap-align:start}
-.pets img{width:100%;height:auto}
-.cta{position:relative;margin:30px 0 20px;text-align:center;background:linear-gradient(135deg,#7c5cff33,#ff5fa233);border:1px solid var(--line);border-radius:28px;padding:34px 18px}
-footer{position:relative;text-align:center;color:var(--mut);font-size:.9rem;padding:24px 0 40px}
+.end{position:relative;margin:30px 0 20px;text-align:center;background:linear-gradient(135deg,#7c5cff33,#ff5fa233);border:1px solid var(--line);border-radius:28px;padding:40px 18px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,var(--a),var(--b));color:#fff;text-decoration:none;font-weight:700;padding:16px 32px;border-radius:16px;font-size:1.15rem;box-shadow:0 10px 30px #7c5cff55}
+.note{color:var(--mut);font-size:.88rem;margin-top:14px}
+footer{position:relative;text-align:center;color:var(--mut);font-size:.9rem;padding:20px 0 40px}
 footer a{margin:0 8px;color:var(--fg);opacity:.85}
-@media(max-width:760px){.hero{grid-template-columns:1fr;text-align:center}.phone{order:-1;width:220px;height:440px}.phone img{width:120px}}
+@media(max-width:760px){.blk,.blk.rev{grid-template-columns:1fr}.blk .phone,.blk.rev .phone{order:2}.blk .tx{order:1}}
 </style>
 </head>
 <body>
 <div class="glow"></div>
 <div class="wrap">
-<header><div class="logo"><i>D</i>RIFT</div><a class="btn" style="padding:9px 18px;font-size:.95rem;box-shadow:none" href="#get">تحميل</a></header>
+<header><div class="logo"><i>D</i>RIFT</div></header>
 
 <section class="hero">
-<div>
 <h1>فيديوهات لا تنتهي،<br><span>وأصدقاء ينتظرونك</span></h1>
-<p class="lead">Drift تطبيق خفيف وممتع: مقاطع قصيرة تتبدّل بلمسة، أصدقاء افتراضيون تتبنّاهم وتعتني بهم، مكافآت يومية وعجلة حظ وهدايا مفاجئة. مجاني، بدون إعلانات، ولا يجمع أي بيانات منك.</p>
-<a id="get" class="btn" href="Drift.apk" download>⬇ تحميل التطبيق (APK)</a>
-<div class="note">لأجهزة أندرويد 7.0 فما فوق · بعد التحميل افتح الملف وفعّل «التثبيت من مصدر غير معروف» إذا طُلب منك</div>
-</div>
-<div class="phone"><div class="scr"></div><div class="pill">🪙 106</div><img src="img/cat.png" alt=""><div class="rail"><span>♥</span><span>💬</span><span>🎁</span><span>↗</span></div><div class="cap">فيديو جديد كل لمسة… ✨</div></div>
+<p class="lead">Drift تطبيق خفيف وممتع. قبل أن تحمّله، تعرّف على كل ما فيه: الخلاصة والأصدقاء والبيت والحديقة والمتجر والمكافآت. وزر التحميل ينتظرك في آخر الصفحة.</p>
+<div class="scroll">مرّر للأسفل ↓</div>
 </section>
 
-<section class="sec">
-<h2>كل ما تحتاجه في مكان واحد</h2>
-<p class="sub">واجهة سلسة بتصميم عصري ولمسات مرحة</p>
+<div class="pets"><div><img src="img/cat.png" alt="" loading="lazy"></div><div><img src="img/dog.png" alt="" loading="lazy"></div><div><img src="img/fox.png" alt="" loading="lazy"></div><div><img src="img/panda.png" alt="" loading="lazy"></div><div><img src="img/hamster.png" alt="" loading="lazy"></div><div><img src="img/owl.png" alt="" loading="lazy"></div><div><img src="img/unicorn.png" alt="" loading="lazy"></div><div><img src="img/frog.png" alt="" loading="lazy"></div><div><img src="img/chick.png" alt="" loading="lazy"></div><div><img src="img/dragon.png" alt="" loading="lazy"></div><div><img src="img/rabbit.png" alt="" loading="lazy"></div><div><img src="img/penguin.png" alt="" loading="lazy"></div></div>
+
+<section class="blk"><div class="tx"><span class="num">01</span><h2>خلاصة لا تنتهي</h2><p>تفتح التطبيق فتجد فيديوهات قصيرة جاهزة، تمرّر للأعلى فيأتيك التالي فورًا. تتحكم بالسرعة والصوت والتشغيل التلقائي، ويتذكّر التطبيق ما تحبه ليقترح عليك المزيد منه.</p><ul><li>تمرير عمودي سريع بين المقاطع</li><li>سرعة تشغيل وصوت وتشغيل تلقائي</li><li>إعجاب وحفظ ومشاركة وتعليقات</li><li>وضع تدوير الشاشة وإخفاء الأزرار للمشاهدة الكاملة</li></ul></div></section><section class="blk rev"><div class="tx"><span class="num">02</span><h2>تحديات وأسئلة بين المقاطع</h2><p>بين الحين والآخر يظهر لك تحدٍّ سريع أو سؤال ثقافي تجيب عنه وتربح عملات. أسئلة تبدو صعبة لكنها ممتعة.</p><ul><li>أسئلة منوعة وتحديات قصيرة</li><li>جوائز من العملات عند الإجابة</li></ul></div><div class="phone"><img src="shots/challenge.png" alt="تحديات وأسئلة بين المقاطع" loading="lazy"></div></section><section class="blk"><div class="tx"><span class="num">03</span><h2>أصدقاؤك الافتراضيون</h2><p>19 صديقًا مختلفًا: قطة وكلب وثعلب وباندا وتنين ووحيد قرن وغيرهم، ولكل صديق 7 ألوان. تتبنّاهم وتعتني بهم، ولكل واحد قصة صغيرة تتعرف عليها.</p><ul><li>تطعمهم وتلاعبهم وتحمّمهم</li><li>قبعات ونظارات وأوشحة لتزيينهم</li><li>تتغير حالتهم: جوع وسعادة ونظافة</li></ul></div><div class="phone"><img src="shots/hamster.png" alt="أصدقاؤك الافتراضيون" loading="lazy"></div></section><section class="blk rev"><div class="tx"><span class="num">04</span><h2>بيت أصدقائك</h2><p>غرفة دافئة يتحرك فيها أصدقاؤك بحرية. تضع لهم أسرّة وألعابًا وأدوات، وتراهم ينامون ويلعبون ويتحدثون معك.</p><ul><li>غرفة مرسومة بيد وإضاءة نهارية وليلية</li><li>أسرّة وأدوات استحمام وألعاب</li></ul></div><div class="phone"><img src="shots/house.png" alt="بيت أصدقائك" loading="lazy"></div></section><section class="blk"><div class="tx"><span class="num">05</span><h2>الحديقة</h2><p>ازرع بذورًا في الحقول وانتظرها لتنمو، وأصدقاؤك يلعبون بين الأحواض. المحاصيل تُطعم أصدقاءك أو تزيّن الحديقة.</p><ul><li>حقول بذور ونمو مع الوقت</li><li>محاصيل للطعام والزينة</li></ul></div><div class="phone"><img src="shots/garden.png" alt="الحديقة" loading="lazy"></div></section><section class="blk rev"><div class="tx"><span class="num">06</span><h2>البحث والترندات</h2><p>ابحث عن أي موضوع، أو اضغط على ترند رائج وسيمتلئ فيدك بما يخصه فورًا. الترندات مقسّمة إلى فئات لتصل لما يهمك أسرع.</p><ul><li>بحث حر وعمليات بحث سابقة</li><li>ترندات حسب الفئة: ألعاب، ضحك، طبخ، رياضة…</li></ul></div><div class="phone"><img src="shots/search.png" alt="البحث والترندات" loading="lazy"></div></section><section class="blk"><div class="tx"><span class="num">07</span><h2>المتجر</h2><p>اصرف عملاتك على أصدقاء جدد، وقبعات ونظارات وألوان، وطعام وألعاب، وبذور للحديقة، وقلوب بتأثيرات خاصة، وثيمات تغيّر ألوان التطبيق كله.</p><ul><li>أصدقاء وأسرّة</li><li>ملابس وإكسسوارات</li><li>طعام وألعاب وعناية</li><li>ثيمات للتطبيق</li></ul></div><div class="phone"><img src="shots/store.png" alt="المتجر" loading="lazy"></div></section>
+<section class="more">
+<h2>وهناك المزيد</h2>
 <div class="grid">
-<div class="f"><div class="ico">🎬</div><b>خلاصة لا تنتهي</b><p>مقاطع قصيرة مختارة تتبدّل بسحبة واحدة، مع وضع تشغيل تلقائي وتحكّم بالسرعة والصوت.</p></div>
-<div class="f"><div class="ico">🐾</div><b>أصدقاء افتراضيون</b><p>أكثر من 130 شخصية لطيفة تتبنّاها، تطعمها وتلاعبها وتزيّنها بالقبعات والنظارات.</p></div>
-<div class="f"><div class="ico">🏡</div><b>بيت وحديقة</b><p>رتّب بيت أصدقائك وازرع في الحديقة وانتظر الحصاد.</p></div>
-<div class="f"><div class="ico">🎁</div><b>مكافآت وهدايا</b><p>صناديق مفاجآت وعملات تجمعها أثناء التصفح لتشتري بها ما تحب.</p></div>
-<div class="f"><div class="ico">🎡</div><b>عجلة الحظ</b><p>دورة مجانية كل يوم بجوائز نادرة.</p></div>
-<div class="f"><div class="ico">📺</div><b>قصص ومسلسلات</b><p>حلقات مرتبة تتابعها واحدة تلو الأخرى وتكمل من حيث توقفت.</p></div>
-<div class="f"><div class="ico">🛍</div><b>متجر وتخصيص</b><p>ألوان وأزياء ومظاهر تغيّر شكل تطبيقك وأصدقائك.</p></div>
+<div class="f"><div class="ico">🎛</div><b>تخصيص المحتوى</b><p>تتحكم بكل شيء: شدة المحتوى ونسبة المفاجآت، اهتماماتك وما تريد إيقافه، كلمات تفضّلها وكلمات تحجبها، طول الفيديو واللغة، التمرير والصوت والسرعة، وإظهار الأصدقاء أو إخفاؤهم.</p></div>
+<div class="f"><div class="ico">🎁</div><b>المكافآت</b><p>مكافأة يومية تكبر كل يوم، وعجلة حظ بدورة مجانية يوميًا، ومهام قصيرة بجوائز، وأوسمة تجمعها كلما تقدّمت.</p></div>
+<div class="f"><div class="ico">🎡</div><b>عجلة الحظ</b><p>ثماني جوائز من 5 إلى 100 عملة. لفّة مجانية كل يوم ولفّات إضافية بعملاتك.</p></div>
+<div class="f"><div class="ico">📺</div><b>قصص ومسلسلات</b><p>مسلسلات قصيرة تُعرض حلقة بعد حلقة بالترتيب، وتكمل من حيث توقفت، مع زر الحلقة السابقة وتقديم وتأخير 10 ثوانٍ.</p></div>
+<div class="f"><div class="ico">🎁</div><b>هدايا مفاجئة</b><p>صناديق هدايا تظهر أثناء التصفح فيها عملات أو أصدقاء نادرون.</p></div>
 <div class="f"><div class="ico">🔒</div><b>خصوصية كاملة</b><p>لا حسابات ولا تتبّع ولا إعلانات. كل شيء يبقى على جهازك.</p></div>
 </div>
 </section>
 
-<section class="sec">
-<h2>تعرّف على بعض الأصدقاء</h2>
-<p class="sub">وهناك الكثير غيرهم بانتظارك</p>
-<div class="pets">
-<div><img src="img/cat.png" alt=""></div><div><img src="img/fox.png" alt=""></div><div><img src="img/panda.png" alt=""></div><div><img src="img/dog.png" alt=""></div><div><img src="img/owl.png" alt=""></div><div><img src="img/dragon.png" alt=""></div><div><img src="img/unicorn.png" alt=""></div><div><img src="img/frog.png" alt=""></div>
-</div>
-</section>
-
-<section class="cta">
-<h2>جاهز؟</h2>
-<p class="sub">التحميل مجاني ويستغرق ثوانٍ</p>
+<section class="end" id="get">
+<h2>وصلت إلى النهاية 🎉</h2>
+<p class="lead" style="margin-bottom:22px">الآن أنت تعرف كل شيء. التحميل مجاني ويستغرق ثوانٍ.</p>
 <a class="btn" href="Drift.apk" download>⬇ تحميل Drift</a>
+<div class="note">لأجهزة أندرويد 7.0 فما فوق · بعد التحميل افتح الملف وفعّل «التثبيت من مصدر غير معروف» إذا طُلب منك</div>
 </section>
 
-<footer>
-<a href="https://t.me/dineahmed055">تلجرام</a>·<a href="https://instagram.com/dineahmed05">إنستغرام</a>
-<div style="margin-top:8px">© Drift</div>
-</footer>
+<footer><a href="https://t.me/dineahmed055">تلجرام</a>·<a href="https://instagram.com/dineahmed05">إنستغرام</a><div style="margin-top:8px">© Drift</div></footer>
 </div>
 </body>
 </html>
