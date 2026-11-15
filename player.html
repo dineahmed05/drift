@@ -7,7 +7,7 @@
 <script>
 var D=window.D||{ready:function(){},buffered:function(){},started:function(){},ended:function(){},failed:function(){}};
 var Q=new URLSearchParams(location.search);
-var ID=Q.get('v')||'',NS=Q.get('ns')==='1',VERT=Q.get('vert')==='1',W0=+Q.get('w')||360,H0=+Q.get('h')||640,NC=Q.get('nc')==='1';
+var ID=Q.get('v')||'',NS=Q.get('ns')==='1',VERT=Q.get('vert')==='1',W0=+Q.get('w')||360,H0=+Q.get('h')||640,NC=Q.get('nc')==='1',DUR=+Q.get('dur')||0,endT=0;
 var pl,want=false,es=false;
 function lay(){var d=document.documentElement,W=d.clientWidth||window.innerWidth||W0,H=d.clientHeight||window.innerHeight||H0;
 var nw=VERT?720:1280,nh=VERT?1280:720,s;
@@ -23,13 +23,13 @@ onStateChange:function(e){if(e.data==1){if(!want){pl.pauseVideo();pl.seekTo(0,tr
 onError:function(e){D.failed(''+e.data);}}};
 if(NC)o.host='https://www.youtube-nocookie.com';
 pl=new YT.Player('p',o);}
-function fe(){if(!es&&want){es=true;D.ended();}}
+function fe(){if(es||!want||!pl||!pl.getDuration)return;var d=pl.getDuration(),t=pl.getCurrentTime();if(!(d>1&&t>=d-2.5)){endT=0;return;}if(DUR>0&&Math.abs(d-DUR)>Math.max(6,DUR*0.12)){if(!endT)endT=Date.now();if(Date.now()-endT<3000)return;}es=true;D.ended();}
 function go(m,r){want=true;es=false;if(pl&&pl.playVideo){if(m)pl.mute();else pl.unMute();pl.setPlaybackRate(r);pl.seekTo(0,true);pl.playVideo();}}
 function stp(){want=false;if(pl&&pl.pauseVideo)pl.pauseVideo();}
 function pz(){if(pl&&pl.pauseVideo)pl.pauseVideo();}function rs(){if(pl&&pl.playVideo)pl.playVideo();}
 function aud(m,r){if(pl&&pl.mute){if(m)pl.mute();else pl.unMute();pl.setPlaybackRate(r);}}
 var stuck=0;setInterval(function(){if(want&&pl&&pl.getPlayerState){var s=pl.getPlayerState(),t=pl.getCurrentTime();
-if(s==1&&t<0.15){stuck++;}else if(s==3||s==-1||s==5){stuck+=0.5;}else{stuck=0;}if(stuck>=5&&!NS){stuck=-99;D.failed('stuck');}}else{stuck=0;}},1000);
+if(t>=0.4){stuck=0;}else if(s==1){stuck++;}else if(s==3||s==-1||s==5){stuck+=0.5;}else{stuck=0;}if(stuck>=5&&!NS){stuck=-99;D.failed('stuck');}}else{stuck=0;}},1000);
 setInterval(function(){if(want&&pl&&pl.getDuration&&pl.getPlayerState){var s=pl.getPlayerState(),d=pl.getDuration(),t=pl.getCurrentTime();
 if((s==0)||(s==1&&d>1&&t>=d-0.45))fe();}},300);
 </script>
