@@ -1,6 +1,101 @@
 <!doctype html>
-<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Drift</title>
-<style>:root{color-scheme:light dark}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#111;color:#fff;font-family:system-ui,sans-serif;text-align:center}
-h1{font-size:3rem;margin:0;letter-spacing:.2em}p{opacity:.6}</style></head>
-<body><div><h1>Drift</h1><p>تجربة اجتماعية غير ربحية</p></div></body></html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drift — حمّل التطبيق</title>
+<meta name="description" content="Drift: فيديوهات قصيرة لا تنتهي، أصدقاء افتراضيون تعتني بهم، مكافآت وهدايا وعجلة حظ. مجاني وبدون إعلانات.">
+<meta name="theme-color" content="#0d0b1a">
+<style>
+:root{--bg:#0d0b1a;--card:#17142b;--line:#2a2548;--fg:#f4f1ff;--mut:#a9a3c9;--a:#ff5fa2;--b:#7c5cff;--c:#ffc857}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Segoe UI",Tahoma,system-ui,sans-serif;line-height:1.7;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px}
+.glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(600px 400px at 85% -5%,#7c5cff55,transparent 70%),radial-gradient(500px 380px at 5% 30%,#ff5fa233,transparent 70%)}
+header{position:relative;display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.logo{font-weight:800;letter-spacing:.28em;font-size:1.15rem}
+.logo i{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:34px 0 50px}
+h1{font-size:clamp(2.1rem,6vw,3.5rem);line-height:1.15;margin:0 0 14px}
+h1 span{background:linear-gradient(90deg,var(--a),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mut);font-size:1.08rem;margin:0 0 24px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,var(--a),var(--b));color:#fff;text-decoration:none;font-weight:700;padding:15px 28px;border-radius:16px;font-size:1.1rem;box-shadow:0 10px 30px #7c5cff55;transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.note{color:var(--mut);font-size:.88rem;margin-top:12px}
+.phone{position:relative;justify-self:center;width:260px;height:520px;border-radius:38px;background:#000;border:6px solid #2b2650;box-shadow:0 30px 70px #000a,0 0 0 2px #0006;overflow:hidden}
+.phone .scr{position:absolute;inset:0;background:linear-gradient(170deg,#2a1c5a,#0d0b1a 60%,#3b1550)}
+.phone .pill{position:absolute;top:12px;right:14px;background:#0008;border-radius:20px;padding:4px 12px;font-size:.85rem}
+.phone .rail{position:absolute;left:12px;bottom:110px;display:flex;flex-direction:column;gap:16px;font-size:1.4rem;text-align:center}
+.phone .cap{position:absolute;right:14px;bottom:24px;font-size:.9rem;color:#fff;max-width:170px}
+.phone img{position:absolute;width:150px;left:50%;top:34%;transform:translateX(-50%);animation:bob 2.4s ease-in-out infinite;filter:drop-shadow(0 12px 18px #0008)}
+@keyframes bob{50%{transform:translateX(-50%) translateY(-12px)}}
+h2{font-size:1.7rem;margin:0 0 6px}
+.sec{position:relative;padding:34px 0}
+.sub{color:var(--mut);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.f{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}
+.f b{display:block;font-size:1.05rem;margin:8px 0 4px}
+.f p{margin:0;color:var(--mut);font-size:.93rem}
+.ico{font-size:1.9rem}
+.pets{display:flex;gap:10px;overflow-x:auto;padding:6px 2px 14px;scroll-snap-type:x mandatory}
+.pets div{flex:0 0 120px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:10px;text-align:center;scroll-snap-align:start}
+.pets img{width:100%;height:auto}
+.cta{position:relative;margin:30px 0 20px;text-align:center;background:linear-gradient(135deg,#7c5cff33,#ff5fa233);border:1px solid var(--line);border-radius:28px;padding:34px 18px}
+footer{position:relative;text-align:center;color:var(--mut);font-size:.9rem;padding:24px 0 40px}
+footer a{margin:0 8px;color:var(--fg);opacity:.85}
+@media(max-width:760px){.hero{grid-template-columns:1fr;text-align:center}.phone{order:-1;width:220px;height:440px}.phone img{width:120px}}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap">
+<header><div class="logo"><i>D</i>RIFT</div><a class="btn" style="padding:9px 18px;font-size:.95rem;box-shadow:none" href="#get">تحميل</a></header>
+
+<section class="hero">
+<div>
+<h1>فيديوهات لا تنتهي،<br><span>وأصدقاء ينتظرونك</span></h1>
+<p class="lead">Drift تطبيق خفيف وممتع: مقاطع قصيرة تتبدّل بلمسة، أصدقاء افتراضيون تتبنّاهم وتعتني بهم، مكافآت يومية وعجلة حظ وهدايا مفاجئة. مجاني، بدون إعلانات، ولا يجمع أي بيانات منك.</p>
+<a id="get" class="btn" href="Drift.apk" download>⬇ تحميل التطبيق (APK)</a>
+<div class="note">لأجهزة أندرويد 7.0 فما فوق · بعد التحميل افتح الملف وفعّل «التثبيت من مصدر غير معروف» إذا طُلب منك</div>
+</div>
+<div class="phone"><div class="scr"></div><div class="pill">🪙 106</div><img src="img/cat.png" alt=""><div class="rail"><span>♥</span><span>💬</span><span>🎁</span><span>↗</span></div><div class="cap">فيديو جديد كل لمسة… ✨</div></div>
+</section>
+
+<section class="sec">
+<h2>كل ما تحتاجه في مكان واحد</h2>
+<p class="sub">واجهة سلسة بتصميم عصري ولمسات مرحة</p>
+<div class="grid">
+<div class="f"><div class="ico">🎬</div><b>خلاصة لا تنتهي</b><p>مقاطع قصيرة مختارة تتبدّل بسحبة واحدة، مع وضع تشغيل تلقائي وتحكّم بالسرعة والصوت.</p></div>
+<div class="f"><div class="ico">🐾</div><b>أصدقاء افتراضيون</b><p>أكثر من 130 شخصية لطيفة تتبنّاها، تطعمها وتلاعبها وتزيّنها بالقبعات والنظارات.</p></div>
+<div class="f"><div class="ico">🏡</div><b>بيت وحديقة</b><p>رتّب بيت أصدقائك وازرع في الحديقة وانتظر الحصاد.</p></div>
+<div class="f"><div class="ico">🎁</div><b>مكافآت وهدايا</b><p>صناديق مفاجآت وعملات تجمعها أثناء التصفح لتشتري بها ما تحب.</p></div>
+<div class="f"><div class="ico">🎡</div><b>عجلة الحظ</b><p>دورة مجانية كل يوم بجوائز نادرة.</p></div>
+<div class="f"><div class="ico">📺</div><b>قصص ومسلسلات</b><p>حلقات مرتبة تتابعها واحدة تلو الأخرى وتكمل من حيث توقفت.</p></div>
+<div class="f"><div class="ico">🛍</div><b>متجر وتخصيص</b><p>ألوان وأزياء ومظاهر تغيّر شكل تطبيقك وأصدقائك.</p></div>
+<div class="f"><div class="ico">🔒</div><b>خصوصية كاملة</b><p>لا حسابات ولا تتبّع ولا إعلانات. كل شيء يبقى على جهازك.</p></div>
+</div>
+</section>
+
+<section class="sec">
+<h2>تعرّف على بعض الأصدقاء</h2>
+<p class="sub">وهناك الكثير غيرهم بانتظارك</p>
+<div class="pets">
+<div><img src="img/cat.png" alt=""></div><div><img src="img/fox.png" alt=""></div><div><img src="img/panda.png" alt=""></div><div><img src="img/dog.png" alt=""></div><div><img src="img/owl.png" alt=""></div><div><img src="img/dragon.png" alt=""></div><div><img src="img/unicorn.png" alt=""></div><div><img src="img/frog.png" alt=""></div>
+</div>
+</section>
+
+<section class="cta">
+<h2>جاهز؟</h2>
+<p class="sub">التحميل مجاني ويستغرق ثوانٍ</p>
+<a class="btn" href="Drift.apk" download>⬇ تحميل Drift</a>
+</section>
+
+<footer>
+<a href="https://t.me/dineahmed055">تلجرام</a>·<a href="https://instagram.com/dineahmed05">إنستغرام</a>
+<div style="margin-top:8px">© Drift</div>
+</footer>
+</div>
+</body>
+</html>
