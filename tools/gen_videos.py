@@ -263,6 +263,7 @@ try:
         return a * 10 >= len(letters) * 3 or "arabic" in low or "arsub" in low or "مترجم" in t
     RANGE = re.compile(r"\d{1,3}\s*[-~–—]\s*\d{1,3}|full (episode|movie|series|story)|compilation|all episodes|complete", re.I)
     os.makedirs(os.path.join(ROOT, "s"), exist_ok=True)
+    AVG = {}
     def build_eps(pid):
         """Writes s/<pid>.tsv (id, seconds, title) in watching order. Returns the number of usable episodes."""
         ids, tok = [], ""
@@ -292,6 +293,7 @@ try:
                 kk = float(n_) if n_ is not None else prev + 0.5
                 prev = kk; keys.append(kk)
             rows = [rows[i] for i in sorted(range(len(rows)), key=lambda i: keys[i])]
+        AVG[pid] = sum(int(r[1]) for r in rows) // len(rows)
         open(os.path.join(ROOT, "s", pid + ".tsv"), "w", encoding="utf-8").write("".join("\t".join(r) + "\n" for r in rows))
         return len(rows)
     series = []
@@ -299,7 +301,7 @@ try:
     if os.path.exists(sp2):
         for l in open(sp2, encoding="utf-8"):
             c = l.rstrip("\n").split("\t")
-            if len(c) >= 4: series.append(c[:5])
+            if len(c) >= 4: series.append((c + [""])[:5] + c[5:6])
     known_s = {s[0] for s in series}
     sq = json.load(open(os.path.join(HERE, "series_queries.json"), encoding="utf-8"))
     for _ in range(100000):
@@ -332,13 +334,30 @@ try:
             have_n = [x for x in nums if x is not None]
             if emb >= len(items) * 0.8 and len(have_n) >= len(items) * 0.7 and len(set(have_n)) >= len(have_n) * 0.8:
                 if build_eps(pid) >= 5:
-                    series.append(row); known_s.add(pid)
+                    avg = AVG.get(pid, 0)
+                    # short serial clips are the goal: long episodes are kept only occasionally
+                    if avg > 240 and random.random() > 0.2:
+                        try: os.remove(os.path.join(ROOT, "s", pid + ".tsv"))
+                        except OSError: pass
+                        known_s.add(pid)
+                        continue
+                    series.append(row + [str(avg)]); known_s.add(pid)
     # backfill: older series that still have no episode file
     fixed = []
     for row in series:
         if spent >= TOTAL * 0.97: fixed.append(row); continue
-        if os.path.exists(os.path.join(ROOT, "s", row[0] + ".tsv")) or build_eps(row[0]) >= 5: fixed.append(row)
-    series = fixed[-600:]
+        fp = os.path.join(ROOT, "s", row[0] + ".tsv")
+        if os.path.exists(fp) or build_eps(row[0]) >= 5:
+            if len(row) < 6 or not row[5].isdigit():
+                try:
+                    ds = [int(l.split("\t")[1]) for l in open(fp, encoding="utf-8") if l.count("\t") >= 2]
+                    row = row[:5] + [str(sum(ds) // max(1, len(ds)))]
+                except Exception:
+                    row = row[:5] + ["999"]
+            fixed.append(row)
+    series = fixed
+    if len(series) > 600:
+        series = sorted(series, key=lambda r: int(r[5]) if len(r) > 5 and r[5].isdigit() else 999)[:600]
     open(sp2, "w", encoding="utf-8").write("\n".join("\t".join(s) for s in series) + "\n")
 except Out:
     print("all keys exhausted: saving what we have")
