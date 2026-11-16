@@ -1,6 +1,7 @@
 <html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preconnect" href="https://www.youtube.com"><link rel="preconnect" href="https://www.youtube-nocookie.com"><link rel="preconnect" href="https://i.ytimg.com"><link rel="preload" as="script" href="https://www.youtube.com/iframe_api">
 <title>Drift player</title>
 <style>html,body{margin:0;height:100%;background:#000;overflow:hidden}#c{position:fixed;left:0;top:0;width:100%;height:100%;overflow:hidden}</style><style id="sty"></style></head>
 <body><div id="c"><div id="clip"><div id="p"></div></div></div>
@@ -19,7 +20,7 @@ function sk(n){if(pl&&pl.seekTo&&pl.getCurrentTime){pl.seekTo(pl.getCurrentTime(
 function onYouTubeIframeAPIReady(){var o={width:'100%',height:'100%',videoId:ID,
 playerVars:{autoplay:0,controls:0,playsinline:1,rel:0,modestbranding:1,fs:0,iv_load_policy:3,disablekb:1,mute:1},
 events:{onReady:function(){rdy=true;D.ready();if(!want){pl.mute();pl.playVideo();}},
-onStateChange:function(e){if(e.data==1){if(!want){pl.pauseVideo();pl.seekTo(0,true);D.buffered();}else{D.started();}}if(e.data==0)fe();},
+onStateChange:function(e){if(e.data==1){if(!want){pl.pauseVideo();pl.seekTo(0,true);D.buffered();}else{D.started();if(D.dur&&pl.getDuration)D.dur(pl.getDuration());}}if(e.data==0)fe();},
 onError:function(e){D.failed(''+e.data);}}};
 if(NC)o.host='https://www.youtube-nocookie.com';
 pl=new YT.Player('p',o);}
