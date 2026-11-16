@@ -92,7 +92,7 @@ for t in T:
         for l in open(p, encoding="utf-8"):
             c = l.rstrip("\n").split("\t")
             if len(c) >= 10 and c[0]:
-                rows.append(c[:10])
+                rows.append((c + [""])[:11])
     shards[t] = rows
 have = {r[0] for rows in shards.values() for r in rows}
 
@@ -157,7 +157,7 @@ def add_videos(ids, topic):
     n = 0
     ids = [i for i in dict.fromkeys(ids) if i not in have]
     for k in range(0, len(ids), 50):
-        d = api("videos?part=snippet,contentDetails,statistics,status&fields=items(id,snippet(title,channelTitle,channelId,publishedAt,categoryId,defaultAudioLanguage),contentDetails/duration,statistics(viewCount,likeCount),status(embeddable,privacyStatus))&id=" + ",".join(ids[k:k + 50]))
+        d = api("videos?part=snippet,contentDetails,statistics,status&fields=items(id,snippet(title,channelTitle,channelId,publishedAt,categoryId,defaultAudioLanguage,defaultLanguage),contentDetails/duration,statistics(viewCount,likeCount),status(embeddable,privacyStatus))&id=" + ",".join(ids[k:k + 50]))
         if not d: continue
         for o in d.get("items", []):
             dur = row_ok(o)
@@ -165,7 +165,7 @@ def add_videos(ids, topic):
             sn = o.get("snippet", {}); s = o.get("statistics", {})
             title, ch = clean(sn.get("title")), clean(sn.get("channelTitle"))
             if bad_text(title, ch): continue
-            aud = (sn.get("defaultAudioLanguage") or "").lower().split("-")[0]
+            aud = (sn.get("defaultAudioLanguage") or sn.get("defaultLanguage") or "").lower().split("-")[0]
             if aud in ("hi", "bn", "ta", "te", "mr", "gu", "kn", "ml", "pa", "ne", "ur", "th", "vi", "id", "tl"): continue
             cid = sn.get("channelId", "")
             vid = o["id"]
@@ -173,7 +173,7 @@ def add_videos(ids, topic):
             if chan_count.get((topic, cid), 0) >= PER_CHANNEL: continue
             have.add(vid)
             chan_count[(topic, cid)] = chan_count.get((topic, cid), 0) + 1
-            shards[topic].append([vid, str(dur), ch, title, T[topic]["ar"], cid, s.get("viewCount", "0"), s.get("likeCount", "0"), str(sn.get("categoryId", "0")), str(age(sn.get("publishedAt", "")))])
+            shards[topic].append([vid, str(dur), ch, title, T[topic]["ar"], cid, s.get("viewCount", "0"), s.get("likeCount", "0"), str(sn.get("categoryId", "0")), str(age(sn.get("publishedAt", ""))), aud[:2]])
             n += 1
             if cid and cid not in channels:
                 channels[cid] = [topic, 0, 0, 0]
@@ -185,7 +185,9 @@ try:
     for _ in range(100000):
         if spent >= TOTAL * 0.30: break
         t = pick_topic()
-        q = random.choice(T[t]["q"])
+        qs_ = T[t]["q"]
+        arq_ = [x for x in qs_ if re.search(r"[\u0600-\u06FF]", x)]
+        q = random.choice(arq_) if arq_ and random.random() < 0.6 else random.choice(qs_)
         ar = bool(re.search(r"[؀-ۿ]", q))
         order = random.choice(["relevance", "viewCount", "date", "rating"])
         after = datetime.datetime.utcnow() - datetime.timedelta(days=random.choice([30, 90, 180, 365, 730, 1500]))
@@ -260,6 +262,38 @@ try:
         low = t.lower()
         return a * 10 >= len(letters) * 3 or "arabic" in low or "arsub" in low or "مترجم" in t
     RANGE = re.compile(r"\d{1,3}\s*[-~–—]\s*\d{1,3}|full (episode|movie|series|story)|compilation|all episodes|complete", re.I)
+    os.makedirs(os.path.join(ROOT, "s"), exist_ok=True)
+    def build_eps(pid):
+        """Writes s/<pid>.tsv (id, seconds, title) in watching order. Returns the number of usable episodes."""
+        ids, tok = [], ""
+        for _ in range(3):
+            r = api("playlistItems?part=contentDetails&maxResults=50&fields=nextPageToken,items(contentDetails/videoId)&playlistId=" + pid + ("&pageToken=" + tok if tok else ""))
+            if not r: break
+            ids += [i["contentDetails"]["videoId"] for i in r.get("items", [])]
+            tok = r.get("nextPageToken", "")
+            if not tok: break
+        rows = []
+        for k in range(0, len(ids), 50):
+            d = api("videos?part=snippet,contentDetails,status&fields=items(id,snippet/title,contentDetails/duration,status(embeddable,privacyStatus))&id=" + ",".join(ids[k:k + 50]))
+            byid = {o["id"]: o for o in (d or {}).get("items", [])}
+            for vid in ids[k:k + 50]:
+                o = byid.get(vid)
+                if not o: continue
+                st = o.get("status", {})
+                dur = secs(o.get("contentDetails", {}).get("duration"))
+                if not st.get("embeddable", True) or st.get("privacyStatus", "public") != "public" or dur < 3 or dur > 900: continue
+                rows.append([vid, str(dur), clean(o["snippet"]["title"])])
+        if len(rows) < 5: return 0
+        nums = [epnum(r[2]) for r in rows]
+        have_n = [x for x in nums if x is not None]
+        if len(have_n) >= len(rows) * 0.7 and len(set(have_n)) >= len(have_n) * 0.8:
+            prev, keys = 0.0, []
+            for n_ in nums:
+                kk = float(n_) if n_ is not None else prev + 0.5
+                prev = kk; keys.append(kk)
+            rows = [rows[i] for i in sorted(range(len(rows)), key=lambda i: keys[i])]
+        open(os.path.join(ROOT, "s", pid + ".tsv"), "w", encoding="utf-8").write("".join("\t".join(r) + "\n" for r in rows))
+        return len(rows)
     series = []
     sp2 = os.path.join(ROOT, "series.tsv")
     if os.path.exists(sp2):
@@ -297,8 +331,14 @@ try:
             nums = [epnum(o["snippet"]["title"]) for o in items]
             have_n = [x for x in nums if x is not None]
             if emb >= len(items) * 0.8 and len(have_n) >= len(items) * 0.7 and len(set(have_n)) >= len(have_n) * 0.8:
-                series.append(row); known_s.add(pid)
-    series = series[-600:]
+                if build_eps(pid) >= 5:
+                    series.append(row); known_s.add(pid)
+    # backfill: older series that still have no episode file
+    fixed = []
+    for row in series:
+        if spent >= TOTAL * 0.97: fixed.append(row); continue
+        if os.path.exists(os.path.join(ROOT, "s", row[0] + ".tsv")) or build_eps(row[0]) >= 5: fixed.append(row)
+    series = fixed[-600:]
     open(sp2, "w", encoding="utf-8").write("\n".join("\t".join(s) for s in series) + "\n")
 except Out:
     print("all keys exhausted: saving what we have")
