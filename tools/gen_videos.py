@@ -356,8 +356,17 @@ try:
                     row = row[:5] + ["999"]
             fixed.append(row)
     series = fixed
-    if len(series) > 600:
-        series = sorted(series, key=lambda r: int(r[5]) if len(r) > 5 and r[5].isdigit() else 999)[:600]
+    def _avg(r): return int(r[5]) if len(r) > 5 and r[5].isdigit() else 999
+    short_s = [r for r in series if _avg(r) <= 240]
+    long_s = [r for r in series if _avg(r) > 240]
+    # once enough short serials exist, long series shrink to a small minority (their episode files are removed)
+    if len(short_s) >= 30:
+        keep = max(12, len(short_s) // 4)
+        for r in long_s[keep:]:
+            try: os.remove(os.path.join(ROOT, "s", r[0] + ".tsv"))
+            except OSError: pass
+        long_s = long_s[:keep]
+    series = (short_s + long_s)[:600]
     open(sp2, "w", encoding="utf-8").write("\n".join("\t".join(s) for s in series) + "\n")
 except Out:
     print("all keys exhausted: saving what we have")
