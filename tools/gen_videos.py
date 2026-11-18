@@ -253,7 +253,7 @@ try:
     order = sorted(channels, key=lambda c: (channels[c][1], -channels[c][2]))
     done = 0
     for cid in order:
-        if spent >= TOTAL * 0.62: break
+        if spent >= TOTAL * 0.45: break
         ch = channels[cid]
         if ch[3] >= 3 and ch[2] == 0: continue          # channel never gave a usable clip
         if TODAY - ch[1] < 3: continue
@@ -270,7 +270,7 @@ try:
     # ---------- 4) re-check a slice of old clips (drop the ones that stopped being embeddable) ----------
     allrows = [(t, r) for t, rows in shards.items() for r in rows]
     cur = state.get("cursor", 0)
-    slice_ = allrows[cur:cur + max(0, int((TOTAL * 0.70 - spent))) * 50]
+    slice_ = allrows[cur:cur + max(0, int((TOTAL * 0.50 - spent))) * 50]
     state["cursor"] = 0 if cur + len(slice_) >= len(allrows) else cur + len(slice_)
     alive = set()
     ids = [r[0] for _, r in slice_]
