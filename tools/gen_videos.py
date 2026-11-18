@@ -318,7 +318,7 @@ try:
                 if not o: continue
                 st = o.get("status", {})
                 dur = secs(o.get("contentDetails", {}).get("duration"))
-                if not st.get("embeddable", True) or st.get("privacyStatus", "public") != "public" or dur < 3 or dur > 900: continue
+                if not st.get("embeddable", True) or st.get("privacyStatus", "public") != "public" or dur < 3 or dur > 2700: continue
                 rows.append([vid, str(dur), clean(o["snippet"]["title"])])
         if len(rows) < 5: return 0
         nums = [epnum(r[2]) for r in rows]
@@ -371,8 +371,8 @@ try:
             if emb >= len(items) * 0.8 and len(have_n) >= len(items) * 0.7 and len(set(have_n)) >= len(have_n) * 0.8:
                 if build_eps(pid) >= 5:
                     avg = AVG.get(pid, 0)
-                    # short serial clips are the goal: long episodes are kept only occasionally
-                    if avg > 240 and random.random() > 0.2:
+                    # two clean kinds only: short series (Shorts, <= 150 s on average) and long series (real YouTube videos, >= 7 min)
+                    if 150 < avg < 420 or (avg >= 420 and random.random() > 0.5):
                         try: os.remove(os.path.join(ROOT, "s", pid + ".tsv"))
                         except OSError: pass
                         known_s.add(pid)
@@ -393,11 +393,15 @@ try:
             fixed.append(row)
     series = fixed
     def _avg(r): return int(r[5]) if len(r) > 5 and r[5].isdigit() else 999
-    short_s = [r for r in series if _avg(r) <= 240]
-    long_s = [r for r in series if _avg(r) > 240]
+    short_s = [r for r in series if _avg(r) <= 150]
+    long_s = [r for r in series if _avg(r) >= 420]
+    for r in series:
+        if 150 < _avg(r) < 420:
+            try: os.remove(os.path.join(ROOT, "s", r[0] + ".tsv"))
+            except OSError: pass
     # once enough short serials exist, long series shrink to a small minority (their episode files are removed)
     if len(short_s) >= 30:
-        keep = max(12, len(short_s) // 4)
+        keep = max(25, len(short_s) // 2)
         for r in long_s[keep:]:
             try: os.remove(os.path.join(ROOT, "s", r[0] + ".tsv"))
             except OSError: pass
