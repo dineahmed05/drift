@@ -29,6 +29,7 @@ spent = 0
 fails = 0
 
 def api(path, cost=1):
+    if path.startswith("search"): cost = 100
     """Calls the API, rotating keys; raises Out when every key is exhausted."""
     global spent, fails
     if fails >= 15:
@@ -179,6 +180,41 @@ def add_videos(ids, topic):
                 channels[cid] = [topic, 0, 0, 0]
     added_total += n
     return n
+
+
+# ---------------- trends: refreshed every day from what is really popular ----------------
+def build_trends():
+    import re as _re
+    plan = [("DZ", "عربي", ""), ("SA", "عربي", ""), ("EG", "عربي", ""), ("MA", "عربي", ""), ("AE", "عربي", ""),
+            ("US", "عالمي", ""), ("GB", "عالمي", ""), ("FR", "عالمي", ""), ("US", "ألعاب", "20"), ("SA", "ألعاب", "20"),
+            ("US", "ضحك", "23"), ("EG", "ضحك", "23"), ("US", "مريح", "26"), ("GB", "مريح", "24")]
+    out, seen = [], set()
+    for region, cat, vc in plan:
+        r = api("videos?part=snippet&chart=mostPopular&maxResults=20&regionCode=" + region + ("&videoCategoryId=" + vc if vc else "") + "&fields=items(snippet(title,channelTitle))")
+        n = 0
+        for o in (r or {}).get("items", []):
+            sn = o.get("snippet", {})
+            t = _re.sub(r"#\S+|\[[^\]]*\]|\([^)]*\)", " ", sn.get("title", ""))
+            t = _re.split(r"\s[|\-–—]\s", t)[0]
+            t = _re.sub(r"\s+", " ", t).strip(" .:!?")
+            if len(t) < 6 or len(t) > 70 or bad_text(t, sn.get("channelTitle", "")): continue
+            k = t.lower()
+            if k in seen: continue
+            seen.add(k)
+            out.append((" ".join(t.split()[:4]), t, cat))
+            n += 1
+            if n >= 5: break
+    if len(out) >= 12:
+        import datetime
+        with open(os.path.join(ROOT, "trends.tsv"), "w", encoding="utf-8") as f:
+            f.write("#" + datetime.date.today().isoformat() + "\n")
+            for a, b, c in out: f.write(a.replace("\t", " ") + "\t" + b.replace("\t", " ") + "\t" + c + "\n")
+        print("trends:", len(out))
+
+try:
+    build_trends()
+except Exception as e:
+    print("trends failed", e, file=sys.stderr)
 
 try:
     # ---------- 1) discovery by search: random order, random time window, random region -> different results each day ----------
