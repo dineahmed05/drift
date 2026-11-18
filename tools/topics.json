@@ -1,498 +1,1018 @@
 [
-{
-"id": "brain",
-"ar": "ترند غريب",
-"q": [
-"italian brainrot shorts",
-"skibidi sigma shorts",
-"tung tung sahur shorts",
-"برين روت شورتس",
-"ميمز غريبة شورتس"
-]
-},
-{
-"id": "game",
-"ar": "ألعاب",
-"q": [
-"minecraft parkour shorts",
-"subway surfers gameplay shorts",
-"roblox funny moments shorts",
-"ماين كرافت شورتس",
-"العاب مضحكة شورتس"
-]
-},
-{
-"id": "meme",
-"ar": "ميمز",
-"q": [
-"funny memes shorts",
-"brainrot memes shorts",
-"ميمز مضحكة شورتس",
-"تحشيش شورتس"
-]
-},
-{
-"id": "calm",
-"ar": "مريح للأعصاب",
-"q": [
-"oddly satisfying shorts",
-"kinetic sand asmr shorts",
-"فيديوهات مريحة للأعصاب شورتس",
-"اسمر مريح شورتس"
-]
-},
-{
-"id": "fail",
-"ar": "مقالب وفشل",
-"q": [
-"fails compilation shorts",
-"funny pranks shorts",
-"مقالب مضحكة شورتس",
-"فشل مضحك شورتس"
-]
-},
-{
-"id": "pets",
-"ar": "حيوانات",
-"q": [
-"funny cats shorts",
-"cute animals shorts",
-"قطط مضحكة شورتس",
-"حيوانات مضحكة شورتس"
-]
-},
-{
-"id": "anime",
-"ar": "أنمي",
-"q": [
-"anime edit shorts",
-"anime funny moments shorts",
-"انمي شورتس",
-"مقاطع انمي مضحكة"
-]
-},
-{
-"id": "cars",
-"ar": "سيارات",
-"q": [
-"drift cars shorts",
-"supercar shorts",
-"دريفت سيارات شورتس",
-"سيارات فخمة شورتس"
-]
-},
-{
-"id": "dance",
-"ar": "رقص وترند",
-"q": [
-"viral dance trend shorts",
-"tiktok trend shorts",
-"رقص ترند شورتس",
-"تحديات تيك توك شورتس"
-]
-},
-{
-"id": "food",
-"ar": "أكل",
-"q": [
-"street food shorts",
-"mukbang shorts",
-"اكل شوارع شورتس",
-"اكلات مبهرة شورتس"
-]
-},
-{
-"id": "sport",
-"ar": "رياضة",
-"q": [
-"football skills shorts",
-"sports fails shorts",
-"مهارات كرة قدم شورتس",
-"اهداف رائعة شورتس"
-]
-},
-{
-"id": "asmr",
-"ar": "ASMR",
-"q": [
-"asmr tapping shorts",
-"asmr eating shorts",
-"اسمر شورتس",
-"اسمر اكل شورتس"
-]
-},
-{
-"id": "slime",
-"ar": "سلايم وصابون",
-"q": [
-"slime asmr shorts",
-"soap cutting shorts",
-"سلايم شورتس",
-"تقطيع صابون شورتس"
-]
-},
-{
-"id": "story",
-"ar": "قصص ومواقف",
-"q": [
-"storytime subway surfers shorts",
-"reddit stories shorts",
-"قصة مع سبواي سيرفرز شورتس",
-"قصص مواقف شورتس"
-]
-},
-{
-"id": "riddle",
-"ar": "ألغاز وخدع",
-"q": [
-"optical illusion shorts",
-"brain teaser shorts",
-"الغاز شورتس",
-"خدع بصرية شورتس"
-]
-},
-{
-"id": "magic",
-"ar": "خدع سحرية",
-"q": [
-"magic tricks shorts",
-"street magic reaction shorts",
-"خدع سحرية شورتس",
-"العاب خفة اليد شورتس"
-]
-},
-{
-"id": "parkour",
-"ar": "حركات خطرة",
-"q": [
-"parkour shorts",
-"stunts shorts",
-"باركور شورتس",
-"حركات خطيرة شورتس"
-]
-},
-{
-"id": "music",
-"ar": "موسيقى وأغاني",
-"q": [
-"singing talent shorts",
-"music cover shorts",
-"اغاني شورتس",
-"غناء موهبة شورتس"
-]
-},
-{
-"id": "cartoon",
-"ar": "كرتون",
-"q": [
-"funny cartoon shorts",
-"animation memes shorts",
-"كرتون مضحك شورتس",
-"انيميشن مضحك شورتس"
-]
-},
-{
-"id": "challenge",
-"ar": "تحديات",
-"q": [
-"challenge shorts",
-"24 hour challenge shorts",
-"تحدي شورتس",
-"تحديات مضحكة شورتس"
-]
-},
-{
-"id": "skit",
-"ar": "مقاطع تمثيلية",
-"q": [
-"funny skit shorts",
-"pov comedy shorts",
-"مقاطع كوميدية شورتس",
-"سكتش مضحك شورتس"
-]
-},
-{
-"id": "dz",
-"ar": "جزائري",
-"q": [
-"algerian funny shorts",
-"جزائري مضحك شورتس",
-"تحشيش جزائري شورتس",
-"مقالب جزائرية شورتس"
-]
-},
-{
-"id": "arcom",
-"ar": "كوميديا عربية",
-"q": [
-"arabic comedy shorts",
-"كوميديا عربية شورتس",
-"نكت عربية شورتس",
-"مقالب عربية شورتس"
-]
-},
-{
-"id": "tech",
-"ar": "أدوات غريبة",
-"q": [
-"cool gadgets shorts",
-"weird inventions shorts",
-"اختراعات غريبة شورتس",
-"ادوات مفيدة شورتس"
-]
-},
-{
-"id": "travel",
-"ar": "سفر ومغامرات",
-"q": [
-"travel adventure shorts",
-"extreme places shorts",
-"سفر مغامرات شورتس",
-"اماكن غريبة شورتس"
-]
-},
-{
-"id": "nature",
-"ar": "طبيعة مذهلة",
-"q": [
-"amazing nature shorts",
-"ocean animals shorts",
-"طبيعة مذهلة شورتس",
-"حيوانات البحر شورتس"
-]
-},
-{
-"id": "art",
-"ar": "رسم وفن",
-"q": [
-"satisfying drawing shorts",
-"painting asmr shorts",
-"رسم مريح شورتس",
-"فن مبهر شورتس"
-]
-},
-{
-"id": "cook",
-"ar": "طبخ سريع",
-"q": [
-"cooking hacks shorts",
-"satisfying cooking shorts",
-"طبخ سريع شورتس",
-"اكلات سريعة شورتس"
-]
-},
-{
-"id": "poem",
-"ar": "شعر وقصائد",
-"q": [
-"arabic poetry shorts",
-"poetry reading shorts",
-"شعر عربي شورتس",
-"قصائد مؤثرة شورتس",
-"شعر نبطي شورتس",
-"شعر فصيح شورتس"
-]
-},
-{
-"id": "realgame",
-"ar": "ألعاب واقعية",
-"q": [
-"realistic graphics games shorts",
-"simulator games shorts",
-"forza horizon shorts",
-"العاب واقعية شورتس",
-"محاكي واقعي شورتس",
-"رسومات خرافية العاب شورتس"
-]
-},
-{
-"id": "retro",
-"ar": "ألعاب كلاسيكية",
-"q": [
-"retro games shorts",
-"nostalgic video games shorts",
-"العاب قديمة شورتس",
-"ذكريات الالعاب شورتس"
-]
-},
-{
-"id": "books",
-"ar": "كتب وقراءة",
-"q": [
-"book recommendations shorts",
-"booktok shorts",
-"book quotes shorts",
-"كتب انصحك بها شورتس",
-"اقتباسات كتب شورتس",
-"قراءة كتب شورتس"
-]
-},
-{
-"id": "draw",
-"ar": "رسم خطوة بخطوة",
-"q": [
-"easy drawing step by step shorts",
-"speed drawing shorts",
-"تعلم الرسم شورتس",
-"رسم سريع شورتس",
-"رسم بالرصاص شورتس"
-]
-},
-{
-"id": "diy",
-"ar": "بناء وإنشاء",
-"q": [
-"diy build shorts",
-"woodworking shorts",
-"lego build shorts",
-"minecraft build hacks shorts",
-"صناعة بنفسك شورتس",
-"نجارة شورتس",
-"بناء ماين كرافت شورتس",
-"اشغال يدوية شورتس"
-]
-},
-{
-"id": "camp",
-"ar": "تخييم ورحلات برية",
-"q": [
-"camping shorts",
-"hiking shorts",
-"offroad trip shorts",
-"تخييم شورتس",
-"رحلة برية شورتس",
-"مغامرات في الطبيعة شورتس"
-]
-},
-{
-"id": "city",
-"ar": "مدن وعمارة",
-"q": [
-"architecture shorts",
-"amazing cities shorts",
-"عمارة مبهرة شورتس",
-"مدن العالم شورتس"
-]
-},
-{
-"id": "sci",
-"ar": "علم ممتع",
-"q": [
-"science experiments shorts",
-"amazing facts shorts",
-"تجارب علمية شورتس",
-"معلومات غريبة شورتس"
-]
-},
-{
-"id": "space",
-"ar": "فضاء وكواكب",
-"q": [
-"space facts shorts",
-"nasa shorts",
-"فضاء شورتس",
-"معلومات فضائية شورتس"
-]
-},
-{
-"id": "hist",
-"ar": "تاريخ وحضارات",
-"q": [
-"history facts shorts",
-"ancient civilizations shorts",
-"حقائق تاريخية شورتس",
-"حضارات قديمة شورتس"
-]
-},
-{
-"id": "fit",
-"ar": "لياقة وتمارين",
-"q": [
-"calisthenics shorts",
-"gym fails shorts",
-"تمارين شورتس",
-"لياقة بدنية شورتس"
-]
-},
-{
-"id": "wild",
-"ar": "حيوانات برية",
-"q": [
-"wild animals shorts",
-"animal rescue shorts",
-"حيوانات برية شورتس",
-"انقاذ حيوانات شورتس"
-]
-},
-{
-"id": "kids",
-"ar": "أطفال مضحكون",
-"q": [
-"funny babies shorts",
-"cute kids shorts",
-"اطفال مضحكين شورتس",
-"بيبي لطيف شورتس"
-]
-},
-{
-"id": "ai",
-"ar": "ذكاء اصطناعي",
-"q": [
-"ai generated videos shorts",
-"funny ai videos shorts",
-"فيديوهات ذكاء اصطناعي شورتس",
-"قصص ذكاء اصطناعي شورتس"
-]
-},
-{
-"id": "martial",
-"ar": "فنون قتالية",
-"q": [
-"martial arts shorts",
-"boxing shorts",
-"فنون قتالية شورتس",
-"ملاكمة شورتس"
-]
-},
-{
-"id": "instr",
-"ar": "عزف وآلات",
-"q": [
-"guitar solo shorts",
-"piano cover shorts",
-"عزف جيتار شورتس",
-"عزف بيانو شورتس",
-"عزف عود شورتس"
-]
-},
-{
-"id": "photo",
-"ar": "تصوير سينمائي",
-"q": [
-"cinematic video shorts",
-"photography tips shorts",
-"تصوير سينمائي شورتس",
-"تصوير احترافي شورتس"
-]
-},
-{
-"id": "zen",
-"ar": "هدوء وتأمل",
-"q": [
-"rain sounds shorts",
-"relaxing nature shorts",
-"اصوات الطبيعة شورتس",
-"مطر وهدوء شورتس"
-]
-},
-{
-"id": "movie",
-"ar": "أفلام ومسلسلات",
-"q": [
-"movie scenes shorts",
-"movie recap shorts",
-"مقاطع افلام شورتس",
-"ملخص فيلم شورتس"
-]
-}
+ {
+  "id": "brain",
+  "ar": "ترند غريب",
+  "q": [
+   "italian brainrot shorts",
+   "skibidi sigma shorts",
+   "tung tung sahur shorts",
+   "برين روت شورتس",
+   "ميمز غريبة شورتس"
+  ]
+ },
+ {
+  "id": "game",
+  "ar": "ألعاب",
+  "q": [
+   "minecraft parkour shorts",
+   "subway surfers gameplay shorts",
+   "roblox funny moments shorts",
+   "ماين كرافت شورتس",
+   "العاب مضحكة شورتس"
+  ]
+ },
+ {
+  "id": "meme",
+  "ar": "ميمز",
+  "q": [
+   "funny memes shorts",
+   "brainrot memes shorts",
+   "ميمز مضحكة شورتس",
+   "تحشيش شورتس"
+  ]
+ },
+ {
+  "id": "calm",
+  "ar": "مريح للأعصاب",
+  "q": [
+   "oddly satisfying shorts",
+   "kinetic sand asmr shorts",
+   "فيديوهات مريحة للأعصاب شورتس",
+   "اسمر مريح شورتس"
+  ]
+ },
+ {
+  "id": "fail",
+  "ar": "مقالب وفشل",
+  "q": [
+   "fails compilation shorts",
+   "funny pranks shorts",
+   "مقالب مضحكة شورتس",
+   "فشل مضحك شورتس"
+  ]
+ },
+ {
+  "id": "pets",
+  "ar": "حيوانات",
+  "q": [
+   "funny cats shorts",
+   "cute animals shorts",
+   "قطط مضحكة شورتس",
+   "حيوانات مضحكة شورتس"
+  ]
+ },
+ {
+  "id": "anime",
+  "ar": "أنمي",
+  "q": [
+   "anime edit shorts",
+   "anime funny moments shorts",
+   "انمي شورتس",
+   "مقاطع انمي مضحكة"
+  ]
+ },
+ {
+  "id": "cars",
+  "ar": "سيارات",
+  "q": [
+   "drift cars shorts",
+   "supercar shorts",
+   "دريفت سيارات شورتس",
+   "سيارات فخمة شورتس"
+  ]
+ },
+ {
+  "id": "dance",
+  "ar": "رقص وترند",
+  "q": [
+   "viral dance trend shorts",
+   "tiktok trend shorts",
+   "رقص ترند شورتس",
+   "تحديات تيك توك شورتس"
+  ]
+ },
+ {
+  "id": "food",
+  "ar": "أكل",
+  "q": [
+   "street food shorts",
+   "mukbang shorts",
+   "اكل شوارع شورتس",
+   "اكلات مبهرة شورتس"
+  ]
+ },
+ {
+  "id": "sport",
+  "ar": "رياضة",
+  "q": [
+   "football skills shorts",
+   "sports fails shorts",
+   "مهارات كرة قدم شورتس",
+   "اهداف رائعة شورتس"
+  ]
+ },
+ {
+  "id": "asmr",
+  "ar": "ASMR",
+  "q": [
+   "asmr tapping shorts",
+   "asmr eating shorts",
+   "اسمر شورتس",
+   "اسمر اكل شورتس"
+  ]
+ },
+ {
+  "id": "slime",
+  "ar": "سلايم وصابون",
+  "q": [
+   "slime asmr shorts",
+   "soap cutting shorts",
+   "سلايم شورتس",
+   "تقطيع صابون شورتس"
+  ]
+ },
+ {
+  "id": "story",
+  "ar": "قصص ومواقف",
+  "q": [
+   "storytime subway surfers shorts",
+   "reddit stories shorts",
+   "قصة مع سبواي سيرفرز شورتس",
+   "قصص مواقف شورتس"
+  ]
+ },
+ {
+  "id": "riddle",
+  "ar": "ألغاز وخدع",
+  "q": [
+   "optical illusion shorts",
+   "brain teaser shorts",
+   "الغاز شورتس",
+   "خدع بصرية شورتس"
+  ]
+ },
+ {
+  "id": "magic",
+  "ar": "خدع سحرية",
+  "q": [
+   "magic tricks shorts",
+   "street magic reaction shorts",
+   "خدع سحرية شورتس",
+   "العاب خفة اليد شورتس"
+  ]
+ },
+ {
+  "id": "parkour",
+  "ar": "حركات خطرة",
+  "q": [
+   "parkour shorts",
+   "stunts shorts",
+   "باركور شورتس",
+   "حركات خطيرة شورتس"
+  ]
+ },
+ {
+  "id": "music",
+  "ar": "موسيقى وأغاني",
+  "q": [
+   "singing talent shorts",
+   "music cover shorts",
+   "اغاني شورتس",
+   "غناء موهبة شورتس"
+  ]
+ },
+ {
+  "id": "cartoon",
+  "ar": "كرتون",
+  "q": [
+   "funny cartoon shorts",
+   "animation memes shorts",
+   "كرتون مضحك شورتس",
+   "انيميشن مضحك شورتس"
+  ]
+ },
+ {
+  "id": "challenge",
+  "ar": "تحديات",
+  "q": [
+   "challenge shorts",
+   "24 hour challenge shorts",
+   "تحدي شورتس",
+   "تحديات مضحكة شورتس"
+  ]
+ },
+ {
+  "id": "skit",
+  "ar": "مقاطع تمثيلية",
+  "q": [
+   "funny skit shorts",
+   "pov comedy shorts",
+   "مقاطع كوميدية شورتس",
+   "سكتش مضحك شورتس"
+  ]
+ },
+ {
+  "id": "dz",
+  "ar": "جزائري",
+  "q": [
+   "algerian funny shorts",
+   "جزائري مضحك شورتس",
+   "تحشيش جزائري شورتس",
+   "مقالب جزائرية شورتس"
+  ]
+ },
+ {
+  "id": "arcom",
+  "ar": "كوميديا عربية",
+  "q": [
+   "arabic comedy shorts",
+   "كوميديا عربية شورتس",
+   "نكت عربية شورتس",
+   "مقالب عربية شورتس"
+  ]
+ },
+ {
+  "id": "tech",
+  "ar": "أدوات غريبة",
+  "q": [
+   "cool gadgets shorts",
+   "weird inventions shorts",
+   "اختراعات غريبة شورتس",
+   "ادوات مفيدة شورتس"
+  ]
+ },
+ {
+  "id": "travel",
+  "ar": "سفر ومغامرات",
+  "q": [
+   "travel adventure shorts",
+   "extreme places shorts",
+   "سفر مغامرات شورتس",
+   "اماكن غريبة شورتس"
+  ]
+ },
+ {
+  "id": "nature",
+  "ar": "طبيعة مذهلة",
+  "q": [
+   "amazing nature shorts",
+   "ocean animals shorts",
+   "طبيعة مذهلة شورتس",
+   "حيوانات البحر شورتس"
+  ]
+ },
+ {
+  "id": "art",
+  "ar": "رسم وفن",
+  "q": [
+   "satisfying drawing shorts",
+   "painting asmr shorts",
+   "رسم مريح شورتس",
+   "فن مبهر شورتس"
+  ]
+ },
+ {
+  "id": "cook",
+  "ar": "طبخ سريع",
+  "q": [
+   "cooking hacks shorts",
+   "satisfying cooking shorts",
+   "طبخ سريع شورتس",
+   "اكلات سريعة شورتس"
+  ]
+ },
+ {
+  "id": "poem",
+  "ar": "شعر وقصائد",
+  "q": [
+   "arabic poetry shorts",
+   "poetry reading shorts",
+   "شعر عربي شورتس",
+   "قصائد مؤثرة شورتس",
+   "شعر نبطي شورتس",
+   "شعر فصيح شورتس"
+  ]
+ },
+ {
+  "id": "realgame",
+  "ar": "ألعاب واقعية",
+  "q": [
+   "realistic graphics games shorts",
+   "simulator games shorts",
+   "forza horizon shorts",
+   "العاب واقعية شورتس",
+   "محاكي واقعي شورتس",
+   "رسومات خرافية العاب شورتس"
+  ]
+ },
+ {
+  "id": "retro",
+  "ar": "ألعاب كلاسيكية",
+  "q": [
+   "retro games shorts",
+   "nostalgic video games shorts",
+   "العاب قديمة شورتس",
+   "ذكريات الالعاب شورتس"
+  ]
+ },
+ {
+  "id": "books",
+  "ar": "كتب وقراءة",
+  "q": [
+   "book recommendations shorts",
+   "booktok shorts",
+   "book quotes shorts",
+   "كتب انصحك بها شورتس",
+   "اقتباسات كتب شورتس",
+   "قراءة كتب شورتس"
+  ]
+ },
+ {
+  "id": "draw",
+  "ar": "رسم خطوة بخطوة",
+  "q": [
+   "easy drawing step by step shorts",
+   "speed drawing shorts",
+   "تعلم الرسم شورتس",
+   "رسم سريع شورتس",
+   "رسم بالرصاص شورتس"
+  ]
+ },
+ {
+  "id": "diy",
+  "ar": "بناء وإنشاء",
+  "q": [
+   "diy build shorts",
+   "woodworking shorts",
+   "lego build shorts",
+   "minecraft build hacks shorts",
+   "صناعة بنفسك شورتس",
+   "نجارة شورتس",
+   "بناء ماين كرافت شورتس",
+   "اشغال يدوية شورتس"
+  ]
+ },
+ {
+  "id": "camp",
+  "ar": "تخييم ورحلات برية",
+  "q": [
+   "camping shorts",
+   "hiking shorts",
+   "offroad trip shorts",
+   "تخييم شورتس",
+   "رحلة برية شورتس",
+   "مغامرات في الطبيعة شورتس"
+  ]
+ },
+ {
+  "id": "city",
+  "ar": "مدن وعمارة",
+  "q": [
+   "architecture shorts",
+   "amazing cities shorts",
+   "عمارة مبهرة شورتس",
+   "مدن العالم شورتس"
+  ]
+ },
+ {
+  "id": "sci",
+  "ar": "علم ممتع",
+  "q": [
+   "science experiments shorts",
+   "amazing facts shorts",
+   "تجارب علمية شورتس",
+   "معلومات غريبة شورتس"
+  ]
+ },
+ {
+  "id": "space",
+  "ar": "فضاء وكواكب",
+  "q": [
+   "space facts shorts",
+   "nasa shorts",
+   "فضاء شورتس",
+   "معلومات فضائية شورتس"
+  ]
+ },
+ {
+  "id": "hist",
+  "ar": "تاريخ وحضارات",
+  "q": [
+   "history facts shorts",
+   "ancient civilizations shorts",
+   "حقائق تاريخية شورتس",
+   "حضارات قديمة شورتس"
+  ]
+ },
+ {
+  "id": "fit",
+  "ar": "لياقة وتمارين",
+  "q": [
+   "calisthenics shorts",
+   "gym fails shorts",
+   "تمارين شورتس",
+   "لياقة بدنية شورتس"
+  ]
+ },
+ {
+  "id": "wild",
+  "ar": "حيوانات برية",
+  "q": [
+   "wild animals shorts",
+   "animal rescue shorts",
+   "حيوانات برية شورتس",
+   "انقاذ حيوانات شورتس"
+  ]
+ },
+ {
+  "id": "kids",
+  "ar": "أطفال مضحكون",
+  "q": [
+   "funny babies shorts",
+   "cute kids shorts",
+   "اطفال مضحكين شورتس",
+   "بيبي لطيف شورتس"
+  ]
+ },
+ {
+  "id": "ai",
+  "ar": "ذكاء اصطناعي",
+  "q": [
+   "ai generated videos shorts",
+   "funny ai videos shorts",
+   "فيديوهات ذكاء اصطناعي شورتس",
+   "قصص ذكاء اصطناعي شورتس"
+  ]
+ },
+ {
+  "id": "martial",
+  "ar": "فنون قتالية",
+  "q": [
+   "martial arts shorts",
+   "boxing shorts",
+   "فنون قتالية شورتس",
+   "ملاكمة شورتس"
+  ]
+ },
+ {
+  "id": "instr",
+  "ar": "عزف وآلات",
+  "q": [
+   "guitar solo shorts",
+   "piano cover shorts",
+   "عزف جيتار شورتس",
+   "عزف بيانو شورتس",
+   "عزف عود شورتس"
+  ]
+ },
+ {
+  "id": "photo",
+  "ar": "تصوير سينمائي",
+  "q": [
+   "cinematic video shorts",
+   "photography tips shorts",
+   "تصوير سينمائي شورتس",
+   "تصوير احترافي شورتس"
+  ]
+ },
+ {
+  "id": "zen",
+  "ar": "هدوء وتأمل",
+  "q": [
+   "rain sounds shorts",
+   "relaxing nature shorts",
+   "اصوات الطبيعة شورتس",
+   "مطر وهدوء شورتس"
+  ]
+ },
+ {
+  "id": "movie",
+  "ar": "أفلام ومسلسلات",
+  "q": [
+   "movie scenes shorts",
+   "movie recap shorts",
+   "مقاطع افلام شورتس",
+   "ملخص فيلم شورتس"
+  ]
+ },
+ {
+  "id": "ai_story",
+  "ar": "قصص بالذكاء الاصطناعي",
+  "q": [
+   "ai generated story shorts",
+   "ai short story animation shorts",
+   "قصة بالذكاء الاصطناعي شورتس",
+   "قصص مصورة بالذكاء الاصطناعي عربي"
+  ]
+ },
+ {
+  "id": "ai_art",
+  "ar": "فن الذكاء الاصطناعي",
+  "q": [
+   "ai art generation shorts",
+   "midjourney art shorts",
+   "فن الذكاء الاصطناعي شورتس",
+   "صور ذكاء اصطناعي مذهلة"
+  ]
+ },
+ {
+  "id": "ai_film",
+  "ar": "أفلام قصيرة بالذكاء الاصطناعي",
+  "q": [
+   "ai short film shorts",
+   "ai generated movie trailer shorts",
+   "فيلم قصير ذكاء اصطناعي",
+   "مقطع سينمائي بالذكاء الاصطناعي"
+  ]
+ },
+ {
+  "id": "ai_tools",
+  "ar": "أدوات ذكاء اصطناعي",
+  "q": [
+   "best ai tools shorts",
+   "chatgpt tricks shorts",
+   "أدوات ذكاء اصطناعي مفيدة شورتس",
+   "حيل شات جي بي تي"
+  ]
+ },
+ {
+  "id": "mc",
+  "ar": "ماين كرافت",
+  "q": [
+   "minecraft funny moments shorts",
+   "minecraft build hacks shorts",
+   "ماين كرافت مضحكة شورتس",
+   "بناء ماين كرافت شورتس"
+  ]
+ },
+ {
+  "id": "roblox",
+  "ar": "روبلوكس",
+  "q": [
+   "roblox funny shorts",
+   "roblox brookhaven shorts",
+   "روبلوكس مضحك شورتس",
+   "روبلوكس قصص شورتس"
+  ]
+ },
+ {
+  "id": "fortnite",
+  "ar": "فورتنايت وباتل رويال",
+  "q": [
+   "fortnite clips shorts",
+   "battle royale highlights shorts",
+   "فورتنايت شورتس",
+   "ببجي مقاطع شورتس"
+  ]
+ },
+ {
+  "id": "gta",
+  "ar": "جي تي أيه",
+  "q": [
+   "gta 5 funny shorts",
+   "gta stunts shorts",
+   "جي تي ايه مقاطع مضحكة",
+   "جاتا 5 شورتس"
+  ]
+ },
+ {
+  "id": "hgame",
+  "ar": "ألعاب رعب",
+  "q": [
+   "horror game jumpscares shorts",
+   "scary game moments shorts",
+   "ألعاب رعب شورتس",
+   "مقاطع رعب العاب"
+  ]
+ },
+ {
+  "id": "football",
+  "ar": "كرة القدم",
+  "q": [
+   "football skills shorts",
+   "best goals shorts",
+   "مهارات كرة القدم شورتس",
+   "اهداف رائعة شورتس"
+  ]
+ },
+ {
+  "id": "basket",
+  "ar": "كرة السلة",
+  "q": [
+   "basketball highlights shorts",
+   "dunks shorts",
+   "كرة السلة شورتس",
+   "افضل لقطات NBA"
+  ]
+ },
+ {
+  "id": "fight",
+  "ar": "ملاكمة وفنون قتال",
+  "q": [
+   "boxing knockouts shorts",
+   "ufc highlights shorts",
+   "ملاكمة شورتس",
+   "اقوى ضربات UFC"
+  ]
+ },
+ {
+  "id": "skate",
+  "ar": "تزلج وحركات",
+  "q": [
+   "skateboard tricks shorts",
+   "bmx tricks shorts",
+   "حركات تزلج شورتس",
+   "حركات دراجات شورتس"
+  ]
+ },
+ {
+  "id": "cats",
+  "ar": "قطط",
+  "q": [
+   "funny cats shorts",
+   "cute kittens shorts",
+   "قطط مضحكة شورتس",
+   "قطط صغيرة لطيفة"
+  ]
+ },
+ {
+  "id": "dogs",
+  "ar": "كلاب",
+  "q": [
+   "funny dogs shorts",
+   "puppies cute shorts",
+   "كلاب مضحكة شورتس",
+   "جراء لطيفة"
+  ]
+ },
+ {
+  "id": "birds",
+  "ar": "طيور وببغاوات",
+  "q": [
+   "talking parrot shorts",
+   "funny birds shorts",
+   "ببغاء يتكلم شورتس",
+   "طيور جميلة شورتس"
+  ]
+ },
+ {
+  "id": "sea",
+  "ar": "عالم البحار",
+  "q": [
+   "ocean creatures shorts",
+   "underwater animals shorts",
+   "حيوانات البحر شورتس",
+   "اسماك غريبة شورتس"
+  ]
+ },
+ {
+  "id": "horses",
+  "ar": "خيول",
+  "q": [
+   "horse riding shorts",
+   "beautiful horses shorts",
+   "خيول عربية شورتس",
+   "فروسية شورتس"
+  ]
+ },
+ {
+  "id": "bugs",
+  "ar": "حشرات وزواحف",
+  "q": [
+   "insects macro shorts",
+   "reptiles shorts",
+   "زواحف غريبة شورتس",
+   "حشرات مذهلة"
+  ]
+ },
+ {
+  "id": "street",
+  "ar": "أكل الشارع",
+  "q": [
+   "street food shorts",
+   "amazing street food cooking shorts",
+   "اكل شارع شورتس",
+   "طبخ شارع مذهل"
+  ]
+ },
+ {
+  "id": "sweet",
+  "ar": "حلويات",
+  "q": [
+   "dessert recipes shorts",
+   "chocolate desserts shorts",
+   "حلويات سهلة شورتس",
+   "حلويات شرقية شورتس"
+  ]
+ },
+ {
+  "id": "bbq",
+  "ar": "مشاوي وشواء",
+  "q": [
+   "bbq grill shorts",
+   "steak cooking shorts",
+   "مشاوي شورتس",
+   "شواء لحم شورتس"
+  ]
+ },
+ {
+  "id": "dzfood",
+  "ar": "أكلات جزائرية",
+  "q": [
+   "algerian food shorts",
+   "اكلات جزائرية شورتس",
+   "طبخ جزائري شورتس",
+   "حلويات جزائرية"
+  ]
+ },
+ {
+  "id": "bake",
+  "ar": "مخبوزات",
+  "q": [
+   "bread baking shorts",
+   "pastry making shorts",
+   "خبز منزلي شورتس",
+   "معجنات شورتس"
+  ]
+ },
+ {
+  "id": "standup",
+  "ar": "ستاند أب",
+  "q": [
+   "stand up comedy shorts",
+   "comedian jokes shorts",
+   "ستاند اب عربي شورتس",
+   "نكت مضحكة شورتس"
+  ]
+ },
+ {
+  "id": "dub",
+  "ar": "دبلجة مضحكة",
+  "q": [
+   "funny dubbing shorts",
+   "movie scenes funny dub shorts",
+   "دبلجة مضحكة شورتس",
+   "مقاطع افلام مضحكة مدبلجة"
+  ]
+ },
+ {
+  "id": "react",
+  "ar": "ردود فعل",
+  "q": [
+   "funny reactions shorts",
+   "reaction compilation shorts",
+   "ردود فعل مضحكة شورتس",
+   "ردة فعل شورتس"
+  ]
+ },
+ {
+  "id": "facts",
+  "ar": "معلومات غريبة",
+  "q": [
+   "weird facts shorts",
+   "did you know facts shorts",
+   "معلومات غريبة شورتس",
+   "هل تعلم شورتس"
+  ]
+ },
+ {
+  "id": "psy",
+  "ar": "علم النفس",
+  "q": [
+   "psychology facts shorts",
+   "body language tricks shorts",
+   "علم نفس شورتس",
+   "لغة الجسد شورتس"
+  ]
+ },
+ {
+  "id": "money",
+  "ar": "مال واقتصاد",
+  "q": [
+   "money tips shorts",
+   "investing basics shorts",
+   "نصائح مالية شورتس",
+   "اقتصاد مبسط شورتس"
+  ]
+ },
+ {
+  "id": "lang",
+  "ar": "تعلم اللغات",
+  "q": [
+   "learn english shorts",
+   "english phrases shorts",
+   "تعلم الانجليزية شورتس",
+   "تعلم الفرنسية شورتس"
+  ]
+ },
+ {
+  "id": "code",
+  "ar": "برمجة",
+  "q": [
+   "programming tips shorts",
+   "coding tricks shorts",
+   "برمجة شورتس",
+   "تعلم البرمجة شورتس"
+  ]
+ },
+ {
+  "id": "droid",
+  "ar": "أندرويد وتطبيقات",
+  "q": [
+   "android tricks shorts",
+   "hidden phone features shorts",
+   "حيل اندرويد شورتس",
+   "تطبيقات مفيدة شورتس"
+  ]
+ },
+ {
+  "id": "hack",
+  "ar": "حيل منزلية",
+  "q": [
+   "life hacks shorts",
+   "home hacks shorts",
+   "حيل منزلية شورتس",
+   "افكار ذكية شورتس"
+  ]
+ },
+ {
+  "id": "edit",
+  "ar": "مونتاج وسينما",
+  "q": [
+   "cinematic edit shorts",
+   "movie edit shorts",
+   "مونتاج سينمائي شورتس",
+   "مشاهد افلام شورتس"
+  ]
+ },
+ {
+  "id": "oldtoon",
+  "ar": "كرتون كلاسيكي",
+  "q": [
+   "classic cartoons shorts",
+   "90s cartoons shorts",
+   "كرتون قديم شورتس",
+   "كرتون ايام زمان"
+  ]
+ },
+ {
+  "id": "kdrama",
+  "ar": "دراما كورية وتركية",
+  "q": [
+   "korean drama scenes shorts",
+   "turkish series scenes shorts",
+   "دراما كورية مترجمة شورتس",
+   "مسلسل تركي مشاهد شورتس"
+  ]
+ },
+ {
+  "id": "rap",
+  "ar": "راب",
+  "q": [
+   "rap freestyle shorts",
+   "hip hop shorts",
+   "راب عربي شورتس",
+   "فري ستايل شورتس"
+  ]
+ },
+ {
+  "id": "arsong",
+  "ar": "أغاني عربية",
+  "q": [
+   "arabic songs shorts",
+   "arabic music shorts",
+   "اغاني عربية شورتس",
+   "اغاني حديثة عربية"
+  ]
+ },
+ {
+  "id": "rai",
+  "ar": "راي ومغاربي",
+  "q": [
+   "algerian rai shorts",
+   "راي جزائري شورتس",
+   "اغاني مغاربية شورتس",
+   "شعبي جزائري شورتس"
+  ]
+ },
+ {
+  "id": "motiv",
+  "ar": "تحفيز",
+  "q": [
+   "motivation shorts",
+   "success mindset shorts",
+   "تحفيز شورتس",
+   "كلمات تحفيزية شورتس"
+  ]
+ },
+ {
+  "id": "fashion",
+  "ar": "أزياء وستايل",
+  "q": [
+   "fashion tips shorts",
+   "outfit ideas shorts",
+   "ازياء شورتس",
+   "اناقة رجالية شورتس"
+  ]
+ },
+ {
+  "id": "decor",
+  "ar": "ديكور وبيوت",
+  "q": [
+   "home decor ideas shorts",
+   "room makeover shorts",
+   "ديكور منزلي شورتس",
+   "تصميم غرف شورتس"
+  ]
+ },
+ {
+  "id": "plants",
+  "ar": "نباتات وحدائق",
+  "q": [
+   "gardening tips shorts",
+   "indoor plants shorts",
+   "زراعة منزلية شورتس",
+   "حدائق جميلة شورتس"
+  ]
+ },
+ {
+  "id": "carrev",
+  "ar": "مراجعات سيارات",
+  "q": [
+   "car review shorts",
+   "car features shorts",
+   "مراجعة سيارة شورتس",
+   "سيارات جديدة شورتس"
+  ]
+ },
+ {
+  "id": "moto",
+  "ar": "دراجات نارية",
+  "q": [
+   "motorcycle shorts",
+   "superbike shorts",
+   "دراجات نارية شورتس",
+   "استعراض دراجات"
+  ]
+ },
+ {
+  "id": "plane",
+  "ar": "طائرات",
+  "q": [
+   "airplane landing shorts",
+   "pilot cockpit shorts",
+   "طائرات شورتس",
+   "مطارات شورتس"
+  ]
+ },
+ {
+  "id": "train",
+  "ar": "قطارات",
+  "q": [
+   "train shorts",
+   "high speed train shorts",
+   "قطارات شورتس",
+   "سكك حديدية شورتس"
+  ]
+ },
+ {
+  "id": "kidsong",
+  "ar": "أناشيد أطفال",
+  "q": [
+   "kids songs shorts",
+   "nursery rhymes shorts",
+   "اناشيد اطفال شورتس",
+   "اغاني اطفال شورتس"
+  ]
+ },
+ {
+  "id": "eg",
+  "ar": "كوميديا مصرية",
+  "q": [
+   "egyptian comedy shorts",
+   "كوميديا مصرية شورتس",
+   "مقاطع مصرية مضحكة",
+   "اسكتشات مصرية"
+  ]
+ },
+ {
+  "id": "gulf",
+  "ar": "كوميديا خليجية",
+  "q": [
+   "saudi comedy shorts",
+   "كوميديا سعودية شورتس",
+   "مقاطع خليجية مضحكة",
+   "اسكتشات خليجية"
+  ]
+ },
+ {
+  "id": "ma",
+  "ar": "كوميديا مغربية",
+  "q": [
+   "moroccan comedy shorts",
+   "كوميديا مغربية شورتس",
+   "مقاطع مغربية مضحكة",
+   "اسكتشات مغربية"
+  ]
+ }
 ]

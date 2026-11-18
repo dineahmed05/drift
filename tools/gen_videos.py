@@ -366,6 +366,13 @@ try:
             try: os.remove(os.path.join(ROOT, "s", r[0] + ".tsv"))
             except OSError: pass
         long_s = long_s[:keep]
+    # AI-generated story series come first, then the rest (each group keeps its order)
+    AIW = ("ذكاء اصطناعي", "الذكاء الاصطناعي", "بالذكاء", " ai ", "ai-", "(ai)", "ai generated", "ai story", "مولد")
+    def _ai(r): 
+        t = (" " + r[1] + " ").lower()
+        return 0 if any(w in t for w in AIW) else 1
+    short_s.sort(key=_ai)
+    long_s.sort(key=_ai)
     series = (short_s + long_s)[:600]
     open(sp2, "w", encoding="utf-8").write("\n".join("\t".join(s) for s in series) + "\n")
 except Out:
