@@ -219,7 +219,7 @@ except Exception as e:
 try:
     # ---------- 1) discovery by search: random order, random time window, random region -> different results each day ----------
     for _ in range(100000):
-        if spent >= TOTAL * 0.30: break
+        if spent >= TOTAL * 0.18: break
         t = pick_topic()
         qs_ = T[t]["q"]
         arq_ = [x for x in qs_ if re.search(r"[\u0600-\u06FF]", x)]
@@ -243,7 +243,7 @@ try:
            "17": ["sport", "fit", "martial"], "24": ["challenge", "movie", "cartoon"], "26": ["diy", "cook", "art"], "27": ["sci", "hist", "space"],
            "28": ["tech", "ai"], "19": ["travel", "city", "camp"], "1": ["anime", "cartoon", "movie"], "2": ["cars"], "22": ["story", "brain", "calm"]}
     for _ in range(100000):
-        if spent >= TOTAL * 0.34: break
+        if spent >= TOTAL * 0.21: break
         c = random.choice(list(CAT))
         reg = random.choice(["US", "SA", "EG", "DZ", "GB", "FR", "DE", "BR", "TR", "AE", "MA", "CA"])
         r = api("videos?part=id&chart=mostPopular&videoCategoryId=" + c + "&regionCode=" + reg + "&maxResults=50&fields=items(id)")
@@ -253,7 +253,7 @@ try:
     order = sorted(channels, key=lambda c: (channels[c][1], -channels[c][2]))
     done = 0
     for cid in order:
-        if spent >= TOTAL * 0.45: break
+        if spent >= TOTAL * 0.28: break
         ch = channels[cid]
         if ch[3] >= 3 and ch[2] == 0: continue          # channel never gave a usable clip
         if TODAY - ch[1] < 3: continue
@@ -270,7 +270,7 @@ try:
     # ---------- 4) re-check a slice of old clips (drop the ones that stopped being embeddable) ----------
     allrows = [(t, r) for t, rows in shards.items() for r in rows]
     cur = state.get("cursor", 0)
-    slice_ = allrows[cur:cur + max(0, int((TOTAL * 0.50 - spent))) * 50]
+    slice_ = allrows[cur:cur + max(0, int((TOTAL * 0.30 - spent))) * 50]
     state["cursor"] = 0 if cur + len(slice_) >= len(allrows) else cur + len(slice_)
     alive = set()
     ids = [r[0] for _, r in slice_]
@@ -340,44 +340,49 @@ try:
             if len(c) >= 4: series.append((c + [""])[:5] + c[5:6])
     known_s = {s[0] for s in series}
     sq = json.load(open(os.path.join(HERE, "series_queries.json"), encoding="utf-8"))
-    for _ in range(100000):
-        if spent >= TOTAL * 0.95: break
-        q = random.choice(sq)
-        r = api("search?part=snippet&type=playlist&maxResults=25&safeSearch=strict&relevanceLanguage=ar&regionCode=" + random.choice(["SA", "EG", "DZ", "AE"]) + "&fields=items(id/playlistId,snippet(title,channelTitle,thumbnails/medium/url))&q=" + urllib.parse.quote(q), 100)
-        if not r: continue
-        cand = {}
-        for o in r.get("items", []):
-            pid = o.get("id", {}).get("playlistId"); sn = o.get("snippet", {})
-            ttl = clean(sn.get("title"))
-            if not pid or pid in known_s or bad_text(ttl, sn.get("channelTitle", "")) or not ar_title(ttl) or RANGE.search(ttl): continue
-            cand[pid] = [pid, ttl, clean(sn.get("channelTitle")), "0", sn.get("thumbnails", {}).get("medium", {}).get("url", "")]
-        if not cand: continue
-        cnt = api("playlists?part=contentDetails&fields=items(id,contentDetails/itemCount)&id=" + ",".join(cand))
-        for o in (cnt or {}).get("items", []):
-            n = o.get("contentDetails", {}).get("itemCount", 0)
-            if 6 <= n <= 120 and o["id"] in cand:
-                cand[o["id"]][3] = str(n)
-        for pid, row in cand.items():
-            if row[3] == "0": continue
-            it = api("playlistItems?part=contentDetails&maxResults=50&fields=items(contentDetails/videoId)&playlistId=" + pid)
-            ids = [i["contentDetails"]["videoId"] for i in (it or {}).get("items", [])]
-            if len(ids) < 5: continue
-            d = api("videos?part=snippet,status&fields=items(id,snippet/title,status/embeddable)&id=" + ",".join(ids))
-            items = (d or {}).get("items", [])
-            if len(items) < 5: continue
-            emb = sum(1 for o in items if o.get("status", {}).get("embeddable", True))
-            nums = [epnum(o["snippet"]["title"]) for o in items]
-            have_n = [x for x in nums if x is not None]
-            if emb >= len(items) * 0.8 and len(have_n) >= len(items) * 0.7 and len(set(have_n)) >= len(have_n) * 0.8:
-                if build_eps(pid) >= 5:
-                    avg = AVG.get(pid, 0)
-                    # two clean kinds only: short series (Shorts, <= 150 s on average) and long series (real YouTube videos, >= 7 min)
-                    if 150 < avg < 420 or (avg >= 420 and random.random() > 0.5):
-                        try: os.remove(os.path.join(ROOT, "s", pid + ".tsv"))
-                        except OSError: pass
-                        known_s.add(pid)
-                        continue
-                    series.append(row + [str(avg)]); known_s.add(pid)
+    # the daily quota is shared: ~30% clips, ~36% short series (a little priority), ~29% long series
+    SQ_SHORT = [x for x in sq if re.search(r"short|شورتس|دقيقة|قصير|الجزء|قصة", x, re.I)] or sq
+    SQ_LONG = [x for x in sq if x not in SQ_SHORT] or sq
+    for kind, limit, pool in (("short", 0.66, SQ_SHORT), ("long", 0.95, SQ_LONG)):
+        print("series pass:", kind)
+        for _ in range(100000):
+            if spent >= TOTAL * limit: break
+            q = random.choice(pool)
+            r = api("search?part=snippet&type=playlist&maxResults=25&safeSearch=strict&relevanceLanguage=ar&regionCode=" + random.choice(["SA", "EG", "DZ", "AE"]) + "&fields=items(id/playlistId,snippet(title,channelTitle,thumbnails/medium/url))&q=" + urllib.parse.quote(q), 100)
+            if not r: continue
+            cand = {}
+            for o in r.get("items", []):
+                pid = o.get("id", {}).get("playlistId"); sn = o.get("snippet", {})
+                ttl = clean(sn.get("title"))
+                if not pid or pid in known_s or bad_text(ttl, sn.get("channelTitle", "")) or not ar_title(ttl) or RANGE.search(ttl): continue
+                cand[pid] = [pid, ttl, clean(sn.get("channelTitle")), "0", sn.get("thumbnails", {}).get("medium", {}).get("url", "")]
+            if not cand: continue
+            cnt = api("playlists?part=contentDetails&fields=items(id,contentDetails/itemCount)&id=" + ",".join(cand))
+            for o in (cnt or {}).get("items", []):
+                n = o.get("contentDetails", {}).get("itemCount", 0)
+                if 6 <= n <= 120 and o["id"] in cand:
+                    cand[o["id"]][3] = str(n)
+            for pid, row in cand.items():
+                if row[3] == "0": continue
+                it = api("playlistItems?part=contentDetails&maxResults=50&fields=items(contentDetails/videoId)&playlistId=" + pid)
+                ids = [i["contentDetails"]["videoId"] for i in (it or {}).get("items", [])]
+                if len(ids) < 5: continue
+                d = api("videos?part=snippet,status&fields=items(id,snippet/title,status/embeddable)&id=" + ",".join(ids))
+                items = (d or {}).get("items", [])
+                if len(items) < 5: continue
+                emb = sum(1 for o in items if o.get("status", {}).get("embeddable", True))
+                nums = [epnum(o["snippet"]["title"]) for o in items]
+                have_n = [x for x in nums if x is not None]
+                if emb >= len(items) * 0.8 and len(have_n) >= len(items) * 0.7 and len(set(have_n)) >= len(have_n) * 0.8:
+                    if build_eps(pid) >= 5:
+                        avg = AVG.get(pid, 0)
+                        # two clean kinds only: short series (Shorts, <= 150 s on average) and long series (real YouTube videos, >= 7 min)
+                        if 150 < avg < 420:
+                            try: os.remove(os.path.join(ROOT, "s", pid + ".tsv"))
+                            except OSError: pass
+                            known_s.add(pid)
+                            continue
+                        series.append(row + [str(avg)]); known_s.add(pid)
     # backfill: older series that still have no episode file
     fixed = []
     for row in series:
@@ -401,7 +406,7 @@ try:
             except OSError: pass
     # once enough short serials exist, long series shrink to a small minority (their episode files are removed)
     if len(short_s) >= 30:
-        keep = max(25, len(short_s) // 2)
+        keep = max(40, len(short_s))
         for r in long_s[keep:]:
             try: os.remove(os.path.join(ROOT, "s", r[0] + ".tsv"))
             except OSError: pass
