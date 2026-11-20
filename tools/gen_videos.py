@@ -217,72 +217,74 @@ except Exception as e:
     print("trends failed", e, file=sys.stderr)
 
 try:
-    # ---------- 1) discovery by search: random order, random time window, random region -> different results each day ----------
-    for _ in range(100000):
-        if spent >= TOTAL * 0.18: break
-        t = pick_topic()
-        qs_ = T[t]["q"]
-        arq_ = [x for x in qs_ if re.search(r"[\u0600-\u06FF]", x)]
-        q = random.choice(arq_) if arq_ and random.random() < 0.6 else random.choice(qs_)
-        ar = bool(re.search(r"[؀-ۿ]", q))
-        order = random.choice(["relevance", "viewCount", "date", "rating"])
-        after = datetime.datetime.utcnow() - datetime.timedelta(days=random.choice([30, 90, 180, 365, 730, 1500]))
-        win = ""
-        if random.random() < 0.6:
-            a = after.strftime("%Y-%m-%dT00:00:00Z")
-            b = (after + datetime.timedelta(days=random.choice([60, 120, 365]))).strftime("%Y-%m-%dT00:00:00Z")
-            win = "&publishedAfter=" + a + "&publishedBefore=" + b
-        region = random.choice(["SA", "EG", "DZ", "AE", "MA", "IQ"]) if ar else random.choice(["US", "GB", "CA", "AU"])
-        lang = "&relevanceLanguage=" + ("ar" if ar else "en") + "&regionCode=" + region
-        r = api("search?part=id&type=video&videoDuration=short&videoEmbeddable=true&safeSearch=strict&fields=items(id/videoId)&maxResults=50&order=" + order + lang + win + "&q=" + urllib.parse.quote(q), 100)
-        if not r: continue
-        add_videos([i["id"]["videoId"] for i in r.get("items", []) if i.get("id", {}).get("videoId")], t)
+    def videos_round(b0, b1):
+        # ---------- 1) discovery by search: random order, random time window, random region -> different results each day ----------
+        for _ in range(100000):
+            if spent >= TOTAL * (b0 + 0.6 * (b1 - b0)): break
+            t = pick_topic()
+            qs_ = T[t]["q"]
+            arq_ = [x for x in qs_ if re.search(r"[\u0600-\u06FF]", x)]
+            q = random.choice(arq_) if arq_ and random.random() < 0.6 else random.choice(qs_)
+            ar = bool(re.search(r"[؀-ۿ]", q))
+            order = random.choice(["relevance", "viewCount", "date", "rating"])
+            after = datetime.datetime.utcnow() - datetime.timedelta(days=random.choice([30, 90, 180, 365, 730, 1500]))
+            win = ""
+            if random.random() < 0.6:
+                a = after.strftime("%Y-%m-%dT00:00:00Z")
+                b = (after + datetime.timedelta(days=random.choice([60, 120, 365]))).strftime("%Y-%m-%dT00:00:00Z")
+                win = "&publishedAfter=" + a + "&publishedBefore=" + b
+            region = random.choice(["SA", "EG", "DZ", "AE", "MA", "IQ"]) if ar else random.choice(["US", "GB", "CA", "AU"])
+            lang = "&relevanceLanguage=" + ("ar" if ar else "en") + "&regionCode=" + region
+            r = api("search?part=id&type=video&videoDuration=short&videoEmbeddable=true&safeSearch=strict&fields=items(id/videoId)&maxResults=50&order=" + order + lang + win + "&q=" + urllib.parse.quote(q), 100)
+            if not r: continue
+            add_videos([i["id"]["videoId"] for i in r.get("items", []) if i.get("id", {}).get("videoId")], t)
 
-    # ---------- 2) most popular per category / region (1 unit each) ----------
-    CAT = {"20": ["game", "realgame", "parkour"], "23": ["meme", "skit", "fail"], "15": ["pets", "wild"], "10": ["music", "dance"],
-           "17": ["sport", "fit", "martial"], "24": ["challenge", "movie", "cartoon"], "26": ["diy", "cook", "art"], "27": ["sci", "hist", "space"],
-           "28": ["tech", "ai"], "19": ["travel", "city", "camp"], "1": ["anime", "cartoon", "movie"], "2": ["cars"], "22": ["story", "brain", "calm"]}
-    for _ in range(100000):
-        if spent >= TOTAL * 0.21: break
-        c = random.choice(list(CAT))
-        reg = random.choice(["US", "SA", "EG", "DZ", "GB", "FR", "DE", "BR", "TR", "AE", "MA", "CA"])
-        r = api("videos?part=id&chart=mostPopular&videoCategoryId=" + c + "&regionCode=" + reg + "&maxResults=50&fields=items(id)")
-        if r: add_videos([i["id"] for i in r.get("items", [])], random.choice([x for x in CAT[c] if x in T] or list(T)))
+        # ---------- 2) most popular per category / region (1 unit each) ----------
+        CAT = {"20": ["game", "realgame", "parkour"], "23": ["meme", "skit", "fail"], "15": ["pets", "wild"], "10": ["music", "dance"],
+               "17": ["sport", "fit", "martial"], "24": ["challenge", "movie", "cartoon"], "26": ["diy", "cook", "art"], "27": ["sci", "hist", "space"],
+               "28": ["tech", "ai"], "19": ["travel", "city", "camp"], "1": ["anime", "cartoon", "movie"], "2": ["cars"], "22": ["story", "brain", "calm"]}
+        for _ in range(100000):
+            if spent >= TOTAL * (b0 + 0.7 * (b1 - b0)): break
+            c = random.choice(list(CAT))
+            reg = random.choice(["US", "SA", "EG", "DZ", "GB", "FR", "DE", "BR", "TR", "AE", "MA", "CA"])
+            r = api("videos?part=id&chart=mostPopular&videoCategoryId=" + c + "&regionCode=" + reg + "&maxResults=50&fields=items(id)")
+            if r: add_videos([i["id"] for i in r.get("items", [])], random.choice([x for x in CAT[c] if x in T] or list(T)))
 
-    # ---------- 3) crawl channel uploads (1 unit per 50 videos) ----------
-    order = sorted(channels, key=lambda c: (channels[c][1], -channels[c][2]))
-    done = 0
-    for cid in order:
-        if spent >= TOTAL * 0.28: break
-        ch = channels[cid]
-        if ch[3] >= 3 and ch[2] == 0: continue          # channel never gave a usable clip
-        if TODAY - ch[1] < 3: continue
-        pl = "UU" + cid[2:] if cid.startswith("UC") else None
-        if not pl: continue
-        r = api("playlistItems?part=contentDetails&maxResults=50&fields=items(contentDetails/videoId)&playlistId=" + pl)
-        done += 1
-        ch[1] = TODAY; ch[3] += 1
-        if not r: continue
-        ids = [i["contentDetails"]["videoId"] for i in r.get("items", [])]
-        n = add_videos(ids, ch[0] if ch[0] in T else pick_topic())
-        ch[2] += n
+        # ---------- 3) crawl channel uploads (1 unit per 50 videos) ----------
+        order = sorted(channels, key=lambda c: (channels[c][1], -channels[c][2]))
+        done = 0
+        for cid in order:
+            if spent >= TOTAL * (b0 + 0.9 * (b1 - b0)): break
+            ch = channels[cid]
+            if ch[3] >= 3 and ch[2] == 0: continue          # channel never gave a usable clip
+            if TODAY - ch[1] < 3: continue
+            pl = "UU" + cid[2:] if cid.startswith("UC") else None
+            if not pl: continue
+            r = api("playlistItems?part=contentDetails&maxResults=50&fields=items(contentDetails/videoId)&playlistId=" + pl)
+            done += 1
+            ch[1] = TODAY; ch[3] += 1
+            if not r: continue
+            ids = [i["contentDetails"]["videoId"] for i in r.get("items", [])]
+            n = add_videos(ids, ch[0] if ch[0] in T else pick_topic())
+            ch[2] += n
 
-    # ---------- 4) re-check a slice of old clips (drop the ones that stopped being embeddable) ----------
-    allrows = [(t, r) for t, rows in shards.items() for r in rows]
-    cur = state.get("cursor", 0)
-    slice_ = allrows[cur:cur + max(0, int((TOTAL * 0.30 - spent))) * 50]
-    state["cursor"] = 0 if cur + len(slice_) >= len(allrows) else cur + len(slice_)
-    alive = set()
-    ids = [r[0] for _, r in slice_]
-    for k in range(0, len(ids), 50):
-        d = api("videos?part=contentDetails,status&fields=items(id,contentDetails/duration,status(embeddable,privacyStatus))&id=" + ",".join(ids[k:k + 50]))
-        if d is None: alive.update(ids[k:k + 50]); continue
-        for o in d.get("items", []):
-            if row_ok(o) is not None: alive.add(o["id"])
-    dropped = set(ids) - alive
-    if dropped:
-        for t in shards: shards[t] = [r for r in shards[t] if r[0] not in dropped]
-        print("dropped", len(dropped))
+        # ---------- 4) re-check a slice of old clips (drop the ones that stopped being embeddable) ----------
+        allrows = [(t, r) for t, rows in shards.items() for r in rows]
+        cur = state.get("cursor", 0)
+        slice_ = allrows[cur:cur + max(0, int((TOTAL * b1 - spent))) * 50]
+        state["cursor"] = 0 if cur + len(slice_) >= len(allrows) else cur + len(slice_)
+        alive = set()
+        ids = [r[0] for _, r in slice_]
+        for k in range(0, len(ids), 50):
+            d = api("videos?part=contentDetails,status&fields=items(id,contentDetails/duration,status(embeddable,privacyStatus))&id=" + ",".join(ids[k:k + 50]))
+            if d is None: alive.update(ids[k:k + 50]); continue
+            for o in d.get("items", []):
+                if row_ok(o) is not None: alive.add(o["id"])
+        dropped = set(ids) - alive
+        if dropped:
+            for t in shards: shards[t] = [r for r in shards[t] if r[0] not in dropped]
+            print("dropped", len(dropped))
+
 
     # ---------- 5) series (playlists whose clips are numbered episodes) ----------
     def epnum(raw):
@@ -343,7 +345,7 @@ try:
     # the daily quota is shared: ~30% clips, ~36% short series (a little priority), ~29% long series
     SQ_SHORT = [x for x in sq if re.search(r"short|شورتس|دقيقة|قصير|الجزء|قصة", x, re.I)] or sq
     SQ_LONG = [x for x in sq if x not in SQ_SHORT] or sq
-    for kind, limit, pool in (("short", 0.66, SQ_SHORT), ("long", 0.95, SQ_LONG)):
+    def series_pass(kind, limit, pool):
         print("series pass:", kind)
         for _ in range(100000):
             if spent >= TOTAL * limit: break
@@ -383,10 +385,29 @@ try:
                             known_s.add(pid)
                             continue
                         series.append(row + [str(avg)]); known_s.add(pid)
+    # three rounds of (clips, short series, long series): whatever happens to the quota, every kind got its turn early
+    W = 0.95 / 3
+    exhausted = False
+    try:
+        for rnd in range(3):
+            base = rnd * W
+            for name, fn in (("clips", lambda: videos_round(base, base + 0.30 * W)),
+                             ("short", lambda: series_pass("short", base + 0.68 * W, SQ_SHORT)),
+                             ("long", lambda: series_pass("long", base + W, SQ_LONG))):
+                print("round", rnd + 1, name, "spent", spent, "of", TOTAL)
+                try:
+                    fn()
+                except Out:
+                    raise
+                except Exception as e:
+                    print("phase failed", name, e, file=sys.stderr)
+    except Out:
+        exhausted = True
+        print("all keys exhausted: saving what we have")
     # backfill: older series that still have no episode file
     fixed = []
     for row in series:
-        if spent >= TOTAL * 0.97: fixed.append(row); continue
+        if exhausted or spent >= TOTAL * 0.97: fixed.append(row); continue
         fp = os.path.join(ROOT, "s", row[0] + ".tsv")
         if os.path.exists(fp) or build_eps(row[0]) >= 5:
             if len(row) < 6 or not row[5].isdigit():
