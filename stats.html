@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>إحصاءات Drift</title>
+<style>:root{color-scheme:dark}body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0d0b1a;color:#fff;font-family:system-ui,sans-serif}
+.w{display:flex;flex-direction:column;gap:14px;width:min(92vw,360px)}.c{background:#1b1730;border:1px solid #3a3260;border-radius:18px;padding:22px;text-align:center}
+.n{font-size:44px;font-weight:800;color:#ffd166}.l{color:#b7b2d6;margin-top:4px}small{color:#8c86ad;text-align:center}</style></head>
+<body><div class="w">
+<div class="c"><div class="n" id="v">…</div><div class="l">زوّار الموقع (متصفح واحد = زائر واحد)</div></div>
+<div class="c"><div class="n" id="d">…</div><div class="l">محمّلون (متصفح واحد = مرة واحدة)</div></div>
+<small>الأرقام تقريبية: تُحسب الضغطات لا التثبيتات الفعلية</small></div>
+<script>
+var B='https://api.counterapi.dev/v1/drift-dineahmed05/';
+function get(k,id){fetch(B+k).then(function(r){return r.json()}).then(function(j){document.getElementById(id).textContent=(j.count||0).toLocaleString('ar-EG-u-nu-latn')}).catch(function(){document.getElementById(id).textContent='0'})}
+get('visits','v');get('downloads','d');
+</script></body></html>

@@ -270,5 +270,19 @@ footer a{color:var(--fg);opacity:.85;text-decoration:none;margin:0 10px}
   addEventListener('resize',place);
 })();
 </script>
+<script>
+// visit and download counters (numbers are shown only on stats.html)
+(function(){
+  var B='https://api.counterapi.dev/v1/drift-dineahmed05/';
+  function hit(k){try{fetch(B+k+'/up',{keepalive:true,mode:'cors'}).catch(function(){})}catch(e){}}
+  function once(k){var n='c_'+k;try{if(localStorage.getItem(n))return false}catch(e){}
+    if(document.cookie.indexOf(n+'=1')>-1)return false;
+    try{localStorage.setItem(n,'1')}catch(e){}
+    document.cookie=n+'=1;max-age=31536000;path=/;SameSite=Lax';return true}
+  if(once('visits'))hit('visits');
+  var dl=document.getElementById('dl');
+  if(dl)dl.addEventListener('click',function(){if(dl.hasAttribute('disabled'))return;if(once('downloads'))hit('downloads')});
+})();
+</script>
 </body>
 </html>
