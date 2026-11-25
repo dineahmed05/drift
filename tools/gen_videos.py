@@ -391,8 +391,8 @@ try:
     try:
         for rnd in range(3):
             base = rnd * W
-            for name, fn in (("clips", lambda: videos_round(base, base + 0.30 * W)),
-                             ("short", lambda: series_pass("short", base + 0.68 * W, SQ_SHORT)),
+            for name, fn in (("clips", lambda: videos_round(base, base + 0.20 * W)),
+                             ("short", lambda: series_pass("short", base + 0.75 * W, SQ_SHORT)),
                              ("long", lambda: series_pass("long", base + W, SQ_LONG))):
                 print("round", rnd + 1, name, "spent", spent, "of", TOTAL)
                 try:
